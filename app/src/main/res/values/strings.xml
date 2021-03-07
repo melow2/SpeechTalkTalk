@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">KakaoPay</string>
     <string name="splash_title">카카오페이\n입사과제</string>
+    <string name="settings">환경설정</string>
+    <string name="search_brand">브랜드검색</string>
 </resources>

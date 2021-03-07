@@ -40,7 +40,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.jeit.coconut"
+        applicationId = "com.khs.coconut"
         minSdkVersion(23)
         targetSdkVersion(30)
         versionCode = 2
