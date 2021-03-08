@@ -38,7 +38,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
-        maven(url = "https://oss.sonatype.org/content/repositories/snapshots")
         maven(url = "https://jitpack.io")
         maven(url = "http://dl.bintray.com/amulyakhare/maven")
         maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")

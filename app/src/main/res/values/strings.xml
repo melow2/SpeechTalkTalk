@@ -3,4 +3,6 @@
     <string name="splash_title">카카오페이\n입사과제</string>
     <string name="settings">환경설정</string>
     <string name="search_brand">브랜드검색</string>
+    <string name="msg_last_page">마지막 페이지 입니다.</string>
+    <string name="search_off">검색결과가 없습니다.</string>
 </resources>
