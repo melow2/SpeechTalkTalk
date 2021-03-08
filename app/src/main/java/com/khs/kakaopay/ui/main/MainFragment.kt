@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jakewharton.rxbinding4.recyclerview.scrollEvents
 import com.khs.kakaopay.R
 import com.khs.kakaopay.activity.MainActivity
 import com.khs.kakaopay.databinding.FragmentMainBinding
@@ -73,10 +74,21 @@ class MainFragment : ScopeFragment() {
 
         mViewModel.processIntents(
             Observable.mergeArray(
-                mainActivity.textSearchChanges()
-                    .map { MainIntent.SearchIntent(it) },
+                mainActivity.textSearchChanges().map { MainIntent.SearchIntent(it) },
+                loadNextPageIntent()
             )
         ).addTo(compositeDisposable)
+    }
+
+    private fun loadNextPageIntent(): Observable<MainIntent.LoadNextPage> {
+        return mBinding.rcvBooks
+            .scrollEvents()
+            .filter { (_, _, dy) ->
+                val linearLayoutManager = mBinding.rcvBooks.layoutManager as LinearLayoutManager
+                dy > 0 && linearLayoutManager.findLastVisibleItemPosition() >= linearLayoutManager.itemCount - 1
+            }.map {
+                MainIntent.LoadNextPage
+            }
     }
 
     private fun onClickItem(item: MainViewItem.Content) {

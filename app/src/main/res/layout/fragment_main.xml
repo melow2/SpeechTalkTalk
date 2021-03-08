@@ -11,16 +11,16 @@
             android:id="@+id/rcv_books"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="16dp"
-            tools:listitem="@layout/item_main_recycler_content"
-            tools:visibility="gone" />
+            android:paddingStart="16dp"
+            android:paddingTop="18dp"
+            android:paddingEnd="16dp"
+            tools:listitem="@layout/item_main_recycler_content" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root_lyt_search_off"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="gone">
             <ImageView
                 android:id="@+id/iv_search_off"
                 android:layout_width="100dp"
