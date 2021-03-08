@@ -13,6 +13,7 @@ import com.khs.kakaopay.activity.MainActivity
 import com.khs.kakaopay.databinding.FragmentMainBinding
 import com.lovely.deer.util.data.observe
 import com.lovely.deer.util.data.toast
+import com.lovely.deer.util.data.observeEvent
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
@@ -66,8 +67,8 @@ class MainFragment : ScopeFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        mViewModel.state.observe(viewLifecycleOwner) { (books, state, error, updatePage) ->
-            Timber.tag(TAG).d("[RENDER] - state: $state, books: ${books.size}, error:$error, updatePage:$updatePage")
+        mViewModel.state.observe(viewLifecycleOwner) { (books, state, error, isEnd, updatePage) ->
+            Timber.tag(TAG).d("[RENDER] - state: $state, books: ${books.size}, isEnd:$isEnd, error:$error, updatePage:$updatePage")
             mBinding.rootLytSearchOff.isVisible = books.isEmpty()
             mainAdapter.submitList(books)
         }
@@ -78,6 +79,12 @@ class MainFragment : ScopeFragment() {
                 loadNextPageIntent()
             )
         ).addTo(compositeDisposable)
+
+        mViewModel.singleEvent.observeEvent(viewLifecycleOwner){ event ->
+            when(event){
+                is MainSingleEvent.MessageEvent-> context?.toast(message = event.message,true)
+            }
+        }
     }
 
     private fun loadNextPageIntent(): Observable<MainIntent.LoadNextPage> {

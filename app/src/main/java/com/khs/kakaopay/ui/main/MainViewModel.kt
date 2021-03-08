@@ -27,11 +27,13 @@ class MainViewModel(
     private val intentS = PublishRelay.create<MainIntent>()
     private val stateS = BehaviorRelay.createDefault(intialState)
 
-    private val searchProcessor = ObservableTransformer<MainIntent.SearchIntent, MainPartialChange> { _ ->
+    private val searchProcessor =
+        ObservableTransformer<MainIntent.SearchIntent, MainPartialChange> { _ ->
             searchText.switchMap { search ->
                 interactor.getKakaoBooks(page = START_PAGE, sizePerPage = PAGE_SIZE, query = search)
                     .doOnNext {
-                        val messageFromError = (it as? MainPartialChange.Error ?: return@doOnNext).error.getMessage()
+                        val messageFromError =
+                            (it as? MainPartialChange.Error ?: return@doOnNext).error.getMessage()
                         sendEvent(
                             MainSingleEvent.MessageEvent(
                                 "[ERROR] 검색어: '$search', 메세지: $messageFromError"
@@ -41,29 +43,35 @@ class MainViewModel(
             }
         }
 
-    private val loadNextPageProcessor = ObservableTransformer<MainIntent.LoadNextPage,MainPartialChange> { intent ->
-        intent.withLatestFrom(searchText){_,term -> term}
-            .withLatestFrom(stateS)
-            .map { it.first to it.second.updatePage +1 }
-            .doOnNext { Timber.tag(MainFragment.TAG).d("loadNextPage: $it") }
-            .exhaustMap { (searchText,page) ->
-                interactor.getKakaoBooks(page = page,sizePerPage = PAGE_SIZE,query = searchText)
-                    .doOnNext {
-                        val messageFromError = (it as? MainPartialChange.Error ?: return@doOnNext).error.getMessage()
-                        sendEvent(
-                            MainSingleEvent.MessageEvent(
-                                "[ERROR] - loadNextPage(),  검색어: '$searchText', 메세지: $messageFromError"
+    private val loadNextPageProcessor =
+        ObservableTransformer<MainIntent.LoadNextPage, MainPartialChange> { intent ->
+            intent.withLatestFrom(searchText) { _, term -> term }
+                .withLatestFrom(stateS)
+                .filter { (it.second.state != MainViewState.State.LOADING && it.second.state != MainViewState.State.ERROR) && it.second.isEnd == false }
+                .map { it.first to it.second.updatePage + 1 }
+                .doOnNext { Timber.tag(MainFragment.TAG).d("loadNextPage: $it") }
+                .exhaustMap { (searchText, page) ->
+                    interactor.getKakaoBooks(
+                        page = page,
+                        sizePerPage = PAGE_SIZE,
+                        query = searchText
+                    )
+                        .doOnNext {
+                            val messageFromError = (it as? MainPartialChange.Error
+                                ?: return@doOnNext).error.getMessage()
+                            sendEvent(
+                                MainSingleEvent.MessageEvent(
+                                    "[ERROR] - loadNextPage(),  검색어: '$searchText', 메세지: $messageFromError"
+                                )
                             )
-                        )
-                    }
-            }
-    }
+                        }
+                }
+        }
 
     private val intentToViewState =
         ObservableTransformer<MainIntent, MainViewState> { intentObservable ->
             intentObservable.publish {
                 Observable.mergeArray(
-                    // it.ofType<MainIntent.Init>().compose(initProcessor)
                     it.ofType<MainIntent.SearchIntent>().compose(searchProcessor),
                     it.ofType<MainIntent.LoadNextPage>().compose(loadNextPageProcessor)
                 )

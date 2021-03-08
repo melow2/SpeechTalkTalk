@@ -6,15 +6,5 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="?attr/selectableItemBackground">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/noto_sans_medium"
-            android:gravity="center"
-            android:textSize="14sp"
-            android:text="@string/msg_last_page"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

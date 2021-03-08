@@ -18,12 +18,14 @@ data class MainViewState(
     val books: List<MainViewItem>,
     val state: State,
     val error: KakaoPayAppError?,
+    val isEnd:Boolean?,
     val updatePage: Int
 ) : MviViewState {
     companion object {
         fun initial() = MainViewState(
             books = emptyList(),
             state = INIT,
+            isEnd = false,
             error = null,
             updatePage = 0
         )
@@ -45,6 +47,7 @@ sealed class MainPartialChange {
                 state.copy(
                     books = if (append) state.books.filterNot(MainViewItem::isLoadingOrError).plus(newBooks) else newBooks,
                     updatePage = if (append) state.updatePage + 1 else 1,
+                    isEnd = data.meta?.is_end,
                     state = DATA
                 )
             }
