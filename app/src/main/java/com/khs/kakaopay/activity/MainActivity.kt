@@ -16,7 +16,6 @@ import org.koin.androidx.scope.ScopeActivity
 
 class MainActivity : ScopeActivity() {
 
-    private val mPrefer: SecureSharedPreferences by inject()
     private lateinit var mBinding: ActivityMainBinding
 
     private val appBarConfiguration: AppBarConfiguration by lazy(LazyThreadSafetyMode.NONE) {
@@ -98,11 +97,9 @@ class MainActivity : ScopeActivity() {
      * @since 2021-03-07 오전 11:43
      **/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.searchFragment && findNavController(R.id.nav_main_fragment).currentDestination?.id == R.id.searchFragment)
+        if (item.itemId == R.id.searchFragment)
             return showSearch().let { true }
-        return item.onNavDestinationSelected(findNavController(R.id.nav_main_fragment)) || super.onOptionsItemSelected(
-            item
-        )
+        return super.onOptionsItemSelected(item)
     }
 
     /**
@@ -134,8 +131,11 @@ class MainActivity : ScopeActivity() {
 
     fun showSearch() = mBinding.searchView.showSearch()
     fun hideSearchIfNeeded() = mBinding.searchView.run { if (isSearchOpen) closeSearch() else Unit }
+
     fun textSearchChanges() = mBinding.searchView.textChanges()
-    fun setToolbarTitle(title: String) { mBinding.tvTitle.text = title }
+    fun setToolbarTitle(title: String) {
+        mBinding.tvTitle.text = title
+    }
 
     companion object {
         val TAG = MainActivity::class.simpleName

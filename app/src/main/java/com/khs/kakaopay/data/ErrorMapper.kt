@@ -35,7 +35,7 @@ class ErrorMapper(private val retrofit: Retrofit) {
                     .getError(
                         throwable.response() ?: return ServerError("Response is null", -1),
                         retrofit
-                    )?.let{ ServerError(message = it.message, statusCode = it.statusCode) } ?: ServerError("", -1)
+                    )?.let{ ServerError(message = it.message,statusCode = it.errorType) } ?: ServerError("", -1)
             }
 
             else -> {

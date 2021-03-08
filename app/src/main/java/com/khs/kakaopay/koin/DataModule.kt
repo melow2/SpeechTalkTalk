@@ -1,50 +1,42 @@
 package com.khs.kakaopay.koin
 
 import com.khs.kakaopay.data.ErrorMapper
-import com.khs.kakaopay.data.remote.api.BrandApiService
-import com.khs.kakaopay.data.repository.BrandRepositoryImpl
-import com.khs.kakaopay.domain.repository.BrandRepository
+import com.khs.kakaopay.data.remote.api.KakaoBookApiService
+import com.khs.kakaopay.data.repository.KakaoBookRepositoryImpl
+import com.khs.kakaopay.domain.repository.KakaoBookRepository
 import com.khs.kakaopay.domain.thread.CoroutinesDispatcherProvider
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-const val NS_COCONUT_REPOSITORY_BRAND = "NS_COCONUT_REPOSITORY_BRAND"
-const val NS_COCONUT_REPOSITORY_LIFE = "NS_COCONUT_REPOSITORY_LIFE"
-const val NS_COCONUT_REPOSITORY_HOME = "NS_COCONUT_REPOSITORY_HOME"
-const val NS_COCONUT_ERROR = "NS_COCONUT_ERROR"
-const val NS_COCONUT_REPOSITORY_MEMBER = "NS_COCONUT_REPOSITORY_MEMBER"
-const val NS_COCONUT_REPOSITORY_FEED= "NS_COCONUT_REPOSITORY_FEED"
+const val NS_KAKAO_REPOSITORY_BOOK = "NS_KAKAO_REPOSITORY_BOOK"
+const val NS_KAKAO_ERROR = "NS_KAKAO_ERROR"
 
 @ObsoleteCoroutinesApi
 val dataModule = module {
 
-    single(named(NS_COCONUT_REPOSITORY_BRAND)) {
-        provideBrandRepository(
-            get(named(NS_COCONUT_ERROR)),
-            get(named(NS_COCONUT_API_BRAND)),
-            get(),
+    single(named(NS_KAKAO_REPOSITORY_BOOK)) {
+        provideKakaoBooksRepository(
+            get(named(NS_KAKAO_ERROR)),
+            get(named(NS_KAKAO_API_BOOK)),
             get()
         )
     }
 
-    single(named(NS_COCONUT_ERROR)) { provideErrorMapper(get(named(NS_COCONUT_RETROFIT))) }
+    single(named(NS_KAKAO_ERROR)) { provideErrorMapper(get(named(NS_KAKAO_RETROFIT))) }
 }
 
 @ObsoleteCoroutinesApi
-private fun provideBrandRepository(
+private fun provideKakaoBooksRepository(
     errorMapper: ErrorMapper,
-    brandApiService: BrandApiService,
+    kakaoBookApiservice: KakaoBookApiService,
     dispatcherProvider: CoroutinesDispatcherProvider,
-    appCoroutineScope: CoroutineScope
-): BrandRepository {
-    return BrandRepositoryImpl(
+): KakaoBookRepository {
+    return KakaoBookRepositoryImpl(
         errorMapper = errorMapper,
-        brandApiService = brandApiService,
-        dispatcherProvider = dispatcherProvider,
-        appCoroutineScope = appCoroutineScope
+        kakaoBookApiservice = kakaoBookApiservice,
+        dispatcherProvider = dispatcherProvider
     )
 }
 

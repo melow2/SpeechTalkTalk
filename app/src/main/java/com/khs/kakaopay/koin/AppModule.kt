@@ -21,7 +21,6 @@ val appModule = module {
     single { provideAppCoroutineScope(get()) }
     single { provideMoshi() }
     single { provideSecureSharedPreference(androidContext()) }
-    // single { provideJsonAdaptersContainer(get()) }
 }
 
 fun provideSecureSharedPreference(context: Context): SecureSharedPreferences =
@@ -43,10 +42,6 @@ private fun provideRxSchedulerProvider(): RxSchedulerProvider {
 private fun provideCoroutinesDispatchersProvider(rxSchedulerProvider: RxSchedulerProvider): CoroutinesDispatcherProvider {
     return CoroutinesDispatcherProviderImpl(rxSchedulerProvider)
 }
-
-/*private fun provideJsonAdaptersContainer(moshi: Moshi):JsonAdaptersContainer{
-    return JsonAdaptersContainer(moshi)
-}*/
 
 private fun provideMoshi(): Moshi {
     return Moshi
