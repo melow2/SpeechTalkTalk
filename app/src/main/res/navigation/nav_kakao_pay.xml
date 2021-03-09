@@ -21,5 +21,10 @@
         <argument
             android:name="book"
             app:argType="com.khs.kakaopay.domain.model.book.KakaoBook$Document" />
+        <argument
+            android:name="transitionName"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

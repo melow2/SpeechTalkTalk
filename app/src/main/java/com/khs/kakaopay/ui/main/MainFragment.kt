@@ -2,8 +2,10 @@ package com.khs.kakaopay.ui.main
 
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jakewharton.rxbinding4.recyclerview.scrollEvents
@@ -103,9 +105,15 @@ class MainFragment : ScopeFragment() {
             }
     }
 
-    private fun onClickItem(item: MainViewItem.Content) {
+    private fun onClickItem(item: MainViewItem.Content, view: ImageView) {
         mainActivity.hideSearchIfNeeded()
-        findNavController().navigate(MainFragmentDirections.actionMainFragmentToDetailFragment(book = item.book))
+        view.transitionName = item.book.isbn
+        findNavController().navigate(
+            MainFragmentDirections.actionMainFragmentToDetailFragment(
+                book = item.book,
+                transitionName = item.book.isbn
+            ), FragmentNavigatorExtras(view to view.transitionName)
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

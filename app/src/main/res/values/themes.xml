@@ -18,6 +18,7 @@
         <!-- Navigation bar Color-->
         <item name="android:navigationBarColor">@color/color_000000</item>
         <item name="actionOverflowButtonStyle">@style/AppTheme.OverFlowButton</item>
+
     </style>
 
     <style name="AppTheme.OverFlowButton" parent="Widget.AppCompat.ActionButton.Overflow">

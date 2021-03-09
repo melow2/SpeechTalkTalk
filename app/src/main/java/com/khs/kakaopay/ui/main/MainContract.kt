@@ -61,7 +61,7 @@ sealed class MainPartialChange {
             }
             is Loading -> {
                 state.copy(
-                    books = if (append) state.books.filterNot(MainViewItem::isLoadingOrError).plus(MainViewItem.Loading) else emptyList(),
+                    books = if (append) state.books.filterNot(MainViewItem::isLoadingOrError).plus(MainViewItem.Loading) else listOf(MainViewItem.Loading),
                     state = LOADING
                 )
             }

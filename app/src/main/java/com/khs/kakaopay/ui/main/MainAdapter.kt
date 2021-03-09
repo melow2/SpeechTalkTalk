@@ -2,6 +2,7 @@ package com.khs.kakaopay.ui.main
 
 import android.graphics.drawable.Drawable
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,6 @@ import com.khs.kakaopay.databinding.ItemMainRecyclerErrorBinding
 import com.khs.kakaopay.databinding.ItemMainRecyclerLoadingBinding
 import com.lovely.deer.util.data.inflater
 import com.lovely.deer.util.data.onlyBind
-import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -41,7 +41,7 @@ object MainViewItemDiffUtilCallback : DiffUtil.ItemCallback<MainViewItem>() {
 
 }
 
-class MainAdapter(val onClickItem: (MainViewItem.Content) -> Unit) :
+class MainAdapter(val onClickItem: (MainViewItem.Content, ImageView) -> Unit) :
     ListAdapter<MainViewItem, RecyclerView.ViewHolder>(MainViewItemDiffUtilCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
@@ -140,7 +140,7 @@ class MainAdapter(val onClickItem: (MainViewItem.Content) -> Unit) :
                         })
                         .into(ivBookImage)
                 }
-                itemView.setOnClickListener { onClickItem(item) }
+                itemView.setOnClickListener { onClickItem(item,ivBookImage) }
             }
         }
     }
