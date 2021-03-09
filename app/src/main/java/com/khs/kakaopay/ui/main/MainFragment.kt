@@ -76,6 +76,7 @@ class MainFragment : ScopeFragment() {
 
         mViewModel.state.observe(viewLifecycleOwner) { (books, state, error, isEnd, updatePage) ->
             Timber.tag(TAG).d("[RENDER] - state: $state, books: ${books.size}, isEnd:$isEnd, error:$error, updatePage:$updatePage")
+            mBinding.rootLytSearchOn.isVisible = books.isEmpty() && state == MainViewState.State.INIT
             mBinding.rootLytSearchOff.isVisible = books.isEmpty() && updatePage == 1 && state != MainViewState.State.LOADING
             mainAdapter.submitList(books)
         }

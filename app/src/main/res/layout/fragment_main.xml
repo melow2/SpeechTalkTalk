@@ -13,6 +13,7 @@
             android:layout_height="match_parent"
             android:paddingStart="16dp"
             android:paddingTop="18dp"
+            tools:visibility="gone"
             android:paddingEnd="16dp"
             tools:listitem="@layout/item_main_recycler_content" />
 
@@ -35,6 +36,33 @@
                 app:layout_constraintStart_toStartOf="@id/iv_search_off"
                 app:layout_constraintTop_toBottomOf="@+id/iv_search_off"
                 android:text="@string/search_off"
+                android:textColor="?attr/colorControlNormal"
+                android:textStyle="normal"
+                android:textSize="15sp"
+                android:fontFamily="@font/noto_sans_medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_lyt_search_on"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_search_on"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_baseline_search_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                app:layout_constraintEnd_toEndOf="@id/iv_search_on"
+                app:layout_constraintStart_toStartOf="@id/iv_search_on"
+                app:layout_constraintTop_toBottomOf="@+id/iv_search_on"
+                android:gravity="center"
+                android:text="@string/msg_find_book"
                 android:textColor="?attr/colorControlNormal"
                 android:textStyle="normal"
                 android:textSize="15sp"

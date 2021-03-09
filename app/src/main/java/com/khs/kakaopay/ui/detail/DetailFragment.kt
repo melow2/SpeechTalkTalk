@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.doOnPreDraw
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -21,12 +20,14 @@ import com.jakewharton.rxrelay3.PublishRelay
 import com.khs.kakaopay.R
 import com.khs.kakaopay.activity.MainActivity
 import com.khs.kakaopay.databinding.FragmentDetailBinding
+import com.khs.kakaopay.ui.main.MainAdapter
 import com.lovely.deer.base.BaseFragment
 import com.lovely.deer.util.data.toast
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 import net.cachapa.expandablelayout.util.FastOutSlowInInterpolator
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class DetailFragment : BaseFragment<
@@ -44,20 +45,20 @@ class DetailFragment : BaseFragment<
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         prepareTransitions()
-         sharedElementEnterTransition = MaterialContainerTransform().apply {
-             duration = 300
-             scrimColor = Color.TRANSPARENT
-             interpolator = FastOutSlowInInterpolator()
-             setPathMotion(MaterialArcMotion())
-             fadeMode = MaterialContainerTransform.FADE_MODE_IN
-         }
-         sharedElementReturnTransition = MaterialContainerTransform().apply {
-             duration = 50
-             scrimColor = Color.TRANSPARENT
-             interpolator = FastOutSlowInInterpolator()
-             setPathMotion(MaterialArcMotion())
-             fadeMode = MaterialContainerTransform.FADE_MODE_OUT
-         }
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            duration = 300
+            scrimColor = Color.TRANSPARENT
+            interpolator = FastOutSlowInInterpolator()
+            setPathMotion(MaterialArcMotion())
+            fadeMode = MaterialContainerTransform.FADE_MODE_IN
+        }
+        sharedElementReturnTransition = MaterialContainerTransform().apply {
+            duration = 50
+            scrimColor = Color.TRANSPARENT
+            interpolator = FastOutSlowInInterpolator()
+            setPathMotion(MaterialArcMotion())
+            fadeMode = MaterialContainerTransform.FADE_MODE_OUT
+        }
     }
 
     private fun prepareTransitions() {
@@ -100,32 +101,44 @@ class DetailFragment : BaseFragment<
     }
 
     override fun handleEvent(event: DetailSingleEvent) {
-        when(event){
-            is DetailSingleEvent.MessageEvent ->{
-                context?.toast(event.message,true)
+        when (event) {
+            is DetailSingleEvent.MessageEvent -> {
+                context?.toast(event.message, true)
             }
         }
     }
 
     override fun render(viewState: DetailViewState) {
         val (books, state, error) = viewState
-        mainActivity.setLikeStatus(books?.like?:false)
+        mainActivity.setLikeStatus(books?.like ?: false)
     }
 
-    override fun setUpView(view: View, savedInstanceState: Bundle?) {
-        startTransitions()
-        mainActivity.run {
-            setToolbarTitle(args.book.title ?: NO_TITLE)
-            invalidateOptionsMenu()
-            showLikeBtn()
-            likeBtn.clicks()
-                .throttleFirst(100, TimeUnit.MILLISECONDS)
-                .map { DetailViewIntent.Like }
-                .subscribe(intentS)
-                .addTo(compositeDisposable)
+    override fun setUpView(view: View, savedInstanceState: Bundle?) =
+        (mBinding as FragmentDetailBinding).run {
+            startTransitions()
+            val book = args.book
+            mainActivity.run {
+                setToolbarTitle(args.book.title ?: NO_TITLE)
+                invalidateOptionsMenu()
+                showLikeBtn()
+                likeBtn.clicks()
+                    .throttleFirst(100, TimeUnit.MILLISECONDS)
+                    .map { DetailViewIntent.Like }
+                    .subscribe(intentS)
+                    .addTo(compositeDisposable)
+            }
+            tvSubTitle.text = book.publisher
+            tvBigTitle.text = book.title
+            if (!book.datetime.isNullOrEmpty()) {
+                val temp = MainAdapter.ORIGIN_DATE_FORM.parse(book.datetime)
+                date = MainAdapter.PARSE_DATE_FORM.format(temp)
+            } else tvCreateTime.text = ""
+            price = MainAdapter.PRICE_FORM.format(book.price)
+            tvContent.text = book.contents
+            Timber.tag(TAG).d(book.contents)
+            loadThumbnail()
+            Unit
         }
-        loadThumbnail()
-    }
 
     private fun startTransitions() {
         mBinding?.ivBookImage?.transitionName = args.transitionName

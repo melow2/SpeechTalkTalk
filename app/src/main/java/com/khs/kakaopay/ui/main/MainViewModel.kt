@@ -89,7 +89,7 @@ class MainViewModel(
             .map { it.searchText }
             .filter { it.isNotBlank() }
             .doOnNext { Timber.tag(MainFragment.TAG).d("search #1: $it") }
-            .debounce(600, TimeUnit.MILLISECONDS)
+            .debounce(300, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .doOnNext { Timber.tag(MainFragment.TAG).d("search #2: $it") }
             .share()

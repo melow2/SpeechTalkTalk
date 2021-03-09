@@ -135,7 +135,7 @@
 
         <View
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="1.5dp"
             android:layout_marginTop="16dp"
             android:background="@color/color_f8f8f8"
             app:layout_constraintBottom_toBottomOf="parent"

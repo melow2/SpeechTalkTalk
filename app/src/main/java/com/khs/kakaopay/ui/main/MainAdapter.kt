@@ -140,7 +140,9 @@ class MainAdapter(val onClickItem: (MainViewItem.Content, ImageView) -> Unit) :
                         })
                         .into(ivBookImage)
                 }
-                itemView.setOnClickListener { onClickItem(item,ivBookImage) }
+                itemView.setOnClickListener {
+                    onClickItem(item, ivBookImage)
+                }
             }
         }
     }
