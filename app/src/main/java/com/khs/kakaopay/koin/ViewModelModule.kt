@@ -3,6 +3,10 @@ package com.khs.kakaopay.koin
 
 import com.khs.kakaopay.activity.MainActivity
 import com.khs.kakaopay.activity.SplashActivity
+import com.khs.kakaopay.ui.detail.DetaiInteractorImpl
+import com.khs.kakaopay.ui.detail.DetailFragment
+import com.khs.kakaopay.ui.detail.DetailInteractor
+import com.khs.kakaopay.ui.detail.DetailViewModel
 import com.khs.kakaopay.ui.main.MainFragment
 import com.khs.kakaopay.ui.main.MainInteractor
 import com.khs.kakaopay.ui.main.MainInteractorImpl
@@ -27,6 +31,19 @@ val viewModelModule = module {
             }
             viewModel {
                 MainViewModel(
+                    interactor = get(),
+                    rxSchedulerProvider = get()
+                )
+            }
+        }
+        scope<DetailFragment> {
+            scoped<DetailInteractor> {
+                DetaiInteractorImpl(
+                    dispatcherProvider = get()
+                )
+            }
+            viewModel {
+                DetailViewModel(
                     interactor = get(),
                     rxSchedulerProvider = get()
                 )

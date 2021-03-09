@@ -12,11 +12,14 @@
         android:theme="@style/Theme.KakaoPay"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.khs.kakaopay.activity.MainActivity" />
+        <activity
+            android:name="com.khs.kakaopay.activity.MainActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.khs.kakaopay.activity.SplashActivity"
-            android:theme="@style/Theme.Splash">
+            android:theme="@style/Theme.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

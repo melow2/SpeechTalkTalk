@@ -1,15 +1,14 @@
 package com.khs.kakaopay.activity
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.khs.kakaopay.R
 import com.khs.kakaopay.databinding.ActivityMainBinding
-import com.lovely.deer.util.SecureSharedPreferences
 import com.lovely.deer.util.data.getColorBy
 import com.lovely.deer.util.data.textChanges
 import org.koin.androidx.scope.ScopeActivity
@@ -87,22 +86,6 @@ class MainActivity : ScopeActivity() {
 
 
     /**
-     * 메뉴버튼 클릭 이벤트.
-     *
-     * 1) 현재 검색화면일 경우 검색창을 보여줌.
-     * 2) 아닐 경우 정의된 navigation을 따름.
-     *
-     * @author 권혁신
-     * @version 0.0.8
-     * @since 2021-03-07 오전 11:43
-     **/
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.searchFragment)
-            return showSearch().let { true }
-        return super.onOptionsItemSelected(item)
-    }
-
-    /**
      * 뒤로가기.
      *
      * 1) 좌측 헤더뷰가 가장 우선순위.
@@ -124,18 +107,14 @@ class MainActivity : ScopeActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
     fun showSearch() = mBinding.searchView.showSearch()
     fun hideSearchIfNeeded() = mBinding.searchView.run { if (isSearchOpen) closeSearch() else Unit }
-
     fun textSearchChanges() = mBinding.searchView.textChanges()
-    fun setToolbarTitle(title: String) {
-        mBinding.tvTitle.text = title
-    }
+    fun setToolbarTitle(title: String) { mBinding.tvTitle.text = title }
+    fun hideLikeIfNeeded() = mBinding.run { if (btnLike.isVisible) btnLike.isVisible = false }
+    fun showLikeBtn() { mBinding.btnLike.isVisible = true }
+    val likeBtn get() = mBinding.btnLike
+    fun setLikeStatus(flag:Boolean){ mBinding.isLike = flag }
 
     companion object {
         val TAG = MainActivity::class.simpleName

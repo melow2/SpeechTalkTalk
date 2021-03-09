@@ -63,7 +63,7 @@ android {
                         .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
                         .forEach { output ->
                             output.outputFileName = output.outputFileName
-                                    .replace("app-", "coconut_")
+                                    .replace("app-", "kakao_pay_")
                                     //.replace(".apk", "-${variant.versionName}.${variant.versionCode}.apk")
                                     .replace(".apk", "_${versionName}.apk")
                         }

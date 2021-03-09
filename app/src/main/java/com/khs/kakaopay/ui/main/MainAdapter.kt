@@ -19,6 +19,7 @@ import com.khs.kakaopay.databinding.ItemMainRecyclerErrorBinding
 import com.khs.kakaopay.databinding.ItemMainRecyclerLoadingBinding
 import com.lovely.deer.util.data.inflater
 import com.lovely.deer.util.data.onlyBind
+import timber.log.Timber
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
@@ -29,7 +30,7 @@ object MainViewItemDiffUtilCallback : DiffUtil.ItemCallback<MainViewItem>() {
     ): Boolean = when {
         oldItem is MainViewItem.Loading && newItem is MainViewItem.Loading -> true
         oldItem is MainViewItem.Error && newItem is MainViewItem.Error -> true
-        oldItem is MainViewItem.Content && newItem is MainViewItem.Content -> oldItem.book.isbn == newItem.book.isbn
+        oldItem is MainViewItem.Content && newItem is MainViewItem.Content -> (oldItem.book.isbn == newItem.book.isbn) && (oldItem.book.title == newItem.book.title)
         else -> oldItem == newItem
     }
 
@@ -84,12 +85,11 @@ class MainAdapter(val onClickItem: (MainViewItem.Content) -> Unit) :
 
     override fun getItemId(position: Int): Long {
         return when (val item = getItem(position)) {
-            is MainViewItem.Loading -> 0L
+            is MainViewItem.Loading -> item.toString().hashCode().toLong()
             is MainViewItem.Error -> item.toString().hashCode().toLong()
             is MainViewItem.Content -> item.book.isbn.hashCode().toLong()
         }
     }
-
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ContentViewHolder) holder.bind(getItem(position))
@@ -107,7 +107,7 @@ class MainAdapter(val onClickItem: (MainViewItem.Content) -> Unit) :
                     tvBookName.text = item.book.title
                     tvPrice.text = PRICE_FORM.format(item.book.price)
                     tvDescription.text = item.book.contents
-                    if(!item.book.datetime.isNullOrEmpty()) {
+                    if (!item.book.datetime.isNullOrEmpty()) {
                         val date = ORIGIN_DATE_FORM.parse(item.book.datetime)
                         tvDateTime.text = PARSE_DATE_FORM.format(date)
                     }

@@ -8,17 +8,17 @@ import com.lovely.deer.base.MviSingleEvent
 import com.lovely.deer.base.MviViewState
 import io.reactivex.rxjava3.core.Observable
 
-sealed class MainIntent : MviIntent {
-    object Init:MainIntent()
-    data class SearchIntent(val searchText: String) : MainIntent()
-    object LoadNextPage : MainIntent()
+sealed class MainViewIntent : MviIntent {
+    object Init : MainViewIntent()
+    data class SearchIntent(val searchText: String) : MainViewIntent()
+    object LoadNextPage : MainViewIntent()
 }
 
 data class MainViewState(
-    val books: List<MainViewItem>,
+    var books: List<MainViewItem>,
     val state: State,
     val error: KakaoPayAppError?,
-    val isEnd:Boolean?,
+    val isEnd: Boolean?,
     val updatePage: Int
 ) : MviViewState {
     companion object {
@@ -30,6 +30,7 @@ data class MainViewState(
             updatePage = 0
         )
     }
+
     enum class State { INIT, DATA, LOADING, ERROR }
 }
 
@@ -53,26 +54,26 @@ sealed class MainPartialChange {
             }
             is Error -> {
                 state.copy(
-                    books = state.books.filterNot(MainViewItem::isLoadingOrError).plus(MainViewItem.Error(error)),
+                    books = if (append) state.books.filterNot(MainViewItem::isLoadingOrError).plus(MainViewItem.Error(error)) else listOf(MainViewItem.Error(error)),
                     error = error,
                     state = ERROR
                 )
             }
-            Loading -> {
+            is Loading -> {
                 state.copy(
-                    books = state.books.filterNot(MainViewItem::isLoadingOrError)
-                        .plus(MainViewItem.Loading),
+                    books = if (append) state.books.filterNot(MainViewItem::isLoadingOrError).plus(MainViewItem.Loading) else emptyList(),
                     state = LOADING
                 )
             }
         }
     }
+
     data class Content(val data: KakaoBook, val append: Boolean) : MainPartialChange()
-    data class Error(val error: KakaoPayAppError) : MainPartialChange()
-    object Loading : MainPartialChange()
+    data class Error(val error: KakaoPayAppError, val append: Boolean) : MainPartialChange()
+    data class Loading(val append: Boolean) : MainPartialChange()
 }
 
-sealed class MainSingleEvent:MviSingleEvent {
+sealed class MainSingleEvent : MviSingleEvent {
     data class MessageEvent(val message: String) : MainSingleEvent()
 }
 

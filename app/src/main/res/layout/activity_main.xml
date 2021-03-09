@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="isLike"
+            type="Boolean" />
+    </data>
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
@@ -35,16 +41,28 @@
                         app:title="">
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="match_parent">
                             <TextView
                                 android:id="@+id/tv_title"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                                android:layout_height="match_parent"
                                 android:fontFamily="@font/noto_sans_medium"
+                                android:paddingEnd="?attr/actionBarSize"
+                                android:singleLine="true"
+                                android:gravity="left|center"
                                 android:textColor="@color/color_000000"
                                 android:textSize="16sp"
                                 android:textStyle="normal"
-                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintStart_toStartOf="parent" />
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/btn_like"
+                                android:layout_width="?attr/actionBarSize"
+                                android:layout_height="?attr/actionBarSize"
+                                android:src="@{isLike==true?@drawable/ic_button_40_like:@drawable/ic_button_40_unlike}"
+                                android:visibility="gone"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </androidx.appcompat.widget.Toolbar>

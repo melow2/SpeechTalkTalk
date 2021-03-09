@@ -1,14 +1,15 @@
 package com.khs.kakaopay.domain.model.book
 
-import com.squareup.moshi.JsonClass
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-@JsonClass(generateAdapter = true)
+@Parcelize
 data class KakaoBook(
     val documents: List<Document>?,
     val meta: Meta?
-) {
+) : Parcelable {
 
-    @JsonClass(generateAdapter = true)
+    @Parcelize
     data class Document(
         val authors: List<String>?,
         val contents: String?,
@@ -22,13 +23,13 @@ data class KakaoBook(
         val title: String?,
         val translators: List<String>?,
         val url: String?,
-        val like:Boolean
-    )
+        var like: Boolean
+    ) : Parcelable
 
-    @JsonClass(generateAdapter = true)
+    @Parcelize
     data class Meta(
         val is_end: Boolean?,
         val pageable_count: Int?,
         val total_count: Int?
-    )
+    ) : Parcelable
 }

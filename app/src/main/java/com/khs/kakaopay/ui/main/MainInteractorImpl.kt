@@ -30,15 +30,16 @@ class MainInteractorImpl(
         query: String
     ): Observable<MainPartialChange> {
         return rxObservable(dispatcherProvider.main) {
-            send(Loading)
+            send(Loading(append = page!=1))
             kakaoBookRepository.getSearchBookList(
                 query = query,
                 size = size,
                 page = page
             ).fold({
-                MainPartialChange.Error(it)
+                MainPartialChange.Error(error = it,append = page!=1)
             },{
-                MainPartialChange.Content(it,append = page !=1)
+                it.documents?.forEach { it.like = false  }
+                MainPartialChange.Content(it,append = page!=1)
             }).let {
                 send(it)
             }

@@ -9,5 +9,17 @@
         android:name="com.khs.kakaopay.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.khs.kakaopay.ui.detail.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="book"
+            app:argType="com.khs.kakaopay.domain.model.book.KakaoBook$Document" />
     </fragment>
 </navigation>

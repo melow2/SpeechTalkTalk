@@ -21,14 +21,14 @@ import java.util.concurrent.TimeUnit
 class MainViewModel(
     private val interactor: MainInteractor,
     private val rxSchedulerProvider: RxSchedulerProvider
-) : BaseViewModel<MainIntent, MainViewState, MainSingleEvent>(MainViewState.initial()) {
+) : BaseViewModel<MainViewIntent, MainViewState, MainSingleEvent>(MainViewState.initial()) {
 
     private lateinit var searchText: Observable<String>
-    private val intentS = PublishRelay.create<MainIntent>()
+    private val intentS = PublishRelay.create<MainViewIntent>()
     private val stateS = BehaviorRelay.createDefault(intialState)
 
     private val searchProcessor =
-        ObservableTransformer<MainIntent.SearchIntent, MainPartialChange> { _ ->
+        ObservableTransformer<MainViewIntent.SearchIntent, MainPartialChange> { _ ->
             searchText.switchMap { search ->
                 interactor.getKakaoBooks(page = START_PAGE, sizePerPage = PAGE_SIZE, query = search)
                     .doOnNext {
@@ -44,7 +44,7 @@ class MainViewModel(
         }
 
     private val loadNextPageProcessor =
-        ObservableTransformer<MainIntent.LoadNextPage, MainPartialChange> { intent ->
+        ObservableTransformer<MainViewIntent.LoadNextPage, MainPartialChange> { intent ->
             intent.withLatestFrom(searchText) { _, term -> term }
                 .withLatestFrom(stateS)
                 .filter { (it.second.state != MainViewState.State.LOADING && it.second.state != MainViewState.State.ERROR) && it.second.isEnd == false }
@@ -69,23 +69,23 @@ class MainViewModel(
         }
 
     private val intentToViewState =
-        ObservableTransformer<MainIntent, MainViewState> { intentObservable ->
+        ObservableTransformer<MainViewIntent, MainViewState> { intentObservable ->
             intentObservable.publish {
                 Observable.mergeArray(
-                    it.ofType<MainIntent.SearchIntent>().compose(searchProcessor),
-                    it.ofType<MainIntent.LoadNextPage>().compose(loadNextPageProcessor)
+                    it.ofType<MainViewIntent.SearchIntent>().compose(searchProcessor),
+                    it.ofType<MainViewIntent.LoadNextPage>().compose(loadNextPageProcessor)
                 )
             }.scan(intialState) { state, change -> change.reducer(state) }
                 .distinctUntilChanged()
                 .observeOn(rxSchedulerProvider.main)
         }
 
-    override fun processIntents(intents: Observable<MainIntent>): Disposable =
+    override fun processIntents(intents: Observable<MainViewIntent>): Disposable =
         intents.subscribe(intentS)
 
     init {
 
-        searchText = intentS.ofType<MainIntent.SearchIntent>()
+        searchText = intentS.ofType<MainViewIntent.SearchIntent>()
             .map { it.searchText }
             .filter { it.isNotBlank() }
             .doOnNext { Timber.tag(MainFragment.TAG).d("search #1: $it") }
@@ -107,11 +107,11 @@ class MainViewModel(
     private companion object {
         private const val START_PAGE = 1
         private const val PAGE_SIZE = 50
-        private val intentFilter = ObservableTransformer<MainIntent, MainIntent> { intent ->
+        private val intentFilter = ObservableTransformer<MainViewIntent, MainViewIntent> { intent ->
             intent.publish {
                 Observable.mergeArray(
-                    it.ofType<MainIntent.Init>().take(1),
-                    it.notOfType<MainIntent.Init, MainIntent>()
+                    it.ofType<MainViewIntent.Init>().take(1),
+                    it.notOfType<MainViewIntent.Init, MainViewIntent>()
                 )
             }
         }

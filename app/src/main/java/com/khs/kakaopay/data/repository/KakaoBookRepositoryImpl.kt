@@ -3,6 +3,7 @@ package com.khs.kakaopay.data.repository
 import com.khs.kakaopay.data.ErrorMapper
 import com.khs.kakaopay.data.remote.api.KakaoBookApiService
 import com.khs.kakaopay.data.remote.response.book.KakaoBookMapper
+import com.khs.kakaopay.data.remote.response.book.KakaoBookResponse
 import com.khs.kakaopay.domain.KakaoPayResult
 import com.khs.kakaopay.domain.model.book.KakaoBook
 import com.khs.kakaopay.domain.repository.KakaoBookRepository
