@@ -38,7 +38,7 @@ class MainInteractorImpl(
             ).fold({
                 MainPartialChange.Error(error = it,append = page!=1)
             },{
-                it.documents?.forEach { it.like = false  }
+                it.documents?.forEach { it.like = false}
                 MainPartialChange.Content(it,append = page!=1)
             }).let {
                 send(it)

@@ -105,7 +105,7 @@ class MainAdapter(val onClickItem: (MainViewItem.Content, ImageView) -> Unit) :
             ) { item ->
                 binding.run {
                     tvBookName.text = item.book.title
-                    tvPrice.text = PRICE_FORM.format(item.book.price)
+                    tvPrice.text = PRICE_FORM.format(item.book.price)+"원"
                     tvDescription.text = item.book.contents
                     if (!item.book.datetime.isNullOrEmpty()) {
                         val date = ORIGIN_DATE_FORM.parse(item.book.datetime)
@@ -147,12 +147,8 @@ class MainAdapter(val onClickItem: (MainViewItem.Content, ImageView) -> Unit) :
         }
     }
 
-    inner class ErrorViewHolder(binding: ItemMainRecyclerErrorBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
-    inner class LoadingViewHolder(binding: ItemMainRecyclerLoadingBinding) :
-        RecyclerView.ViewHolder(binding.root)
-
+    inner class ErrorViewHolder(binding: ItemMainRecyclerErrorBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class LoadingViewHolder(binding: ItemMainRecyclerLoadingBinding) : RecyclerView.ViewHolder(binding.root)
     companion object {
         val PRICE_FORM = DecimalFormat("#,##0");
         val ORIGIN_DATE_FORM = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")

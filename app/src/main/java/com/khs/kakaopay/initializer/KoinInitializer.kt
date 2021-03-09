@@ -17,9 +17,9 @@ import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 import timber.log.Timber
 
+@ExperimentalCoroutinesApi
+@ObsoleteCoroutinesApi
 class KoinInitializer : Initializer<Koin> {
-    @ExperimentalCoroutinesApi
-    @ObsoleteCoroutinesApi
     override fun create(context: Context): Koin = context.intializeKoin().also {
         Timber.tag("Initializer").d("Koin intialized.")
     }

@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.*
 import com.khs.kakaopay.R
 import com.khs.kakaopay.databinding.ActivityMainBinding
+import com.lovely.deer.listener.BackPressCloseHandler
 import com.lovely.deer.util.data.getColorBy
 import com.lovely.deer.util.data.textChanges
 import org.koin.androidx.scope.ScopeActivity
@@ -16,6 +17,7 @@ import org.koin.androidx.scope.ScopeActivity
 class MainActivity : ScopeActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
+    private val mBackPressCloseHandler = BackPressCloseHandler(this@MainActivity, null, null, "한번 더 누르면 종료합니다.")
 
     private val appBarConfiguration: AppBarConfiguration by lazy(LazyThreadSafetyMode.NONE) {
         AppBarConfiguration(
@@ -102,7 +104,9 @@ class MainActivity : ScopeActivity() {
             if (searchView.isSearchOpen) {
                 searchView.closeSearch()
             } else {
-                super.onBackPressed()
+                if(findNavController(R.id.nav_main_fragment).currentDestination?.id == R.id.mainFragment)
+                    mBackPressCloseHandler.onBackPressed()
+                else super.onBackPressed()
             }
         }
     }
