@@ -6,12 +6,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatDelegate
 import com.khs.kakaopay.R
-import com.lovely.deer.util.SecureSharedPreferences
 import org.koin.androidx.scope.ScopeActivity
 
 class SplashActivity : ScopeActivity() {
-
-    private val mPrefer: SecureSharedPreferences by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +19,7 @@ class SplashActivity : ScopeActivity() {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             })
             finish()
-        }, 3000)
+        }, 2000)
     }
 
     companion object {

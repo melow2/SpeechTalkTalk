@@ -145,7 +145,7 @@ dependencies {
 /*    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.4")*/
 
     // Stark
-    implementation("com.github.anthonystark1977:mvi:4.0.1")
+    implementation("com.github.anthonystark1977:mvi:4.0.2")
 
     // RxRelay, RxBinding, Timber
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")

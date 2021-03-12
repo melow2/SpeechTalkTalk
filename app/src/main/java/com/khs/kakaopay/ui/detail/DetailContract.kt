@@ -3,9 +3,9 @@ package com.khs.kakaopay.ui.detail
 import com.khs.kakaopay.domain.KakaoPayAppError
 import com.khs.kakaopay.domain.model.book.KakaoBook
 import com.khs.kakaopay.ui.detail.DetailViewState.State.*
-import com.lovely.deer.base.MviIntent
-import com.lovely.deer.base.MviSingleEvent
-import com.lovely.deer.base.MviViewState
+import com.attractive.deer.base.MviIntent
+import com.attractive.deer.base.MviSingleEvent
+import com.attractive.deer.base.MviViewState
 import io.reactivex.rxjava3.core.Observable
 
 sealed class DetailViewIntent : MviIntent {

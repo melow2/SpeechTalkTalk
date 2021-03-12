@@ -13,7 +13,6 @@ import com.khs.kakaopay.ui.main.MainInteractorImpl
 import com.khs.kakaopay.ui.main.MainViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.component.KoinApiExtension
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

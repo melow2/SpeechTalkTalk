@@ -1,23 +1,23 @@
 package com.khs.kakaopay.activity
 
 import android.os.Bundle
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.navigation.ui.*
+import com.attractive.deer.listener.BackPressCloseHandler
+import com.attractive.deer.util.data.getColorBy
+import com.attractive.deer.util.data.textChanges
 import com.khs.kakaopay.R
 import com.khs.kakaopay.databinding.ActivityMainBinding
-import com.lovely.deer.listener.BackPressCloseHandler
-import com.lovely.deer.util.data.getColorBy
-import com.lovely.deer.util.data.textChanges
 import org.koin.androidx.scope.ScopeActivity
 
 class MainActivity : ScopeActivity() {
 
     private lateinit var mBinding: ActivityMainBinding
-    private val mBackPressCloseHandler = BackPressCloseHandler(this@MainActivity, null, null, "한번 더 누르면 종료합니다.")
+    private val mBackPressCloseHandler =
+        BackPressCloseHandler(this@MainActivity, null, null, "한번 더 누르면 종료합니다.")
 
     private val appBarConfiguration: AppBarConfiguration by lazy(LazyThreadSafetyMode.NONE) {
         AppBarConfiguration(
@@ -104,7 +104,7 @@ class MainActivity : ScopeActivity() {
             if (searchView.isSearchOpen) {
                 searchView.closeSearch()
             } else {
-                if(findNavController(R.id.nav_main_fragment).currentDestination?.id == R.id.mainFragment)
+                if (findNavController(R.id.nav_main_fragment).currentDestination?.id == R.id.mainFragment)
                     mBackPressCloseHandler.onBackPressed()
                 else super.onBackPressed()
             }
@@ -114,11 +114,19 @@ class MainActivity : ScopeActivity() {
     fun showSearch() = mBinding.searchView.showSearch()
     fun hideSearchIfNeeded() = mBinding.searchView.run { if (isSearchOpen) closeSearch() else Unit }
     fun textSearchChanges() = mBinding.searchView.textChanges()
-    fun setToolbarTitle(title: String) { mBinding.tvTitle.text = title }
+    fun setToolbarTitle(title: String) {
+        mBinding.tvTitle.text = title
+    }
+
     fun hideLikeIfNeeded() = mBinding.run { if (btnLike.isVisible) btnLike.isVisible = false }
-    fun showLikeBtn() { mBinding.btnLike.isVisible = true }
+    fun showLikeBtn() {
+        mBinding.btnLike.isVisible = true
+    }
+
     val likeBtn get() = mBinding.btnLike
-    fun setLikeStatus(flag:Boolean){ mBinding.isLike = flag }
+    fun setLikeStatus(flag: Boolean) {
+        mBinding.isLike = flag
+    }
 
     companion object {
         val TAG = MainActivity::class.simpleName

@@ -3,14 +3,14 @@ package com.khs.kakaopay.data.repository
 import com.khs.kakaopay.data.ErrorMapper
 import com.khs.kakaopay.data.remote.api.KakaoBookApiService
 import com.khs.kakaopay.data.remote.response.book.KakaoBookMapper
-import com.khs.kakaopay.data.remote.response.book.KakaoBookResponse
 import com.khs.kakaopay.domain.KakaoPayResult
 import com.khs.kakaopay.domain.model.book.KakaoBook
 import com.khs.kakaopay.domain.repository.KakaoBookRepository
 import com.khs.kakaopay.domain.thread.CoroutinesDispatcherProvider
-import com.lovely.deer.util.data.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ObsoleteCoroutinesApi
+import com.attractive.deer.util.data.Cache
+import com.attractive.deer.util.data.RequestCacheKey
+import com.attractive.deer.util.data.buildKey
+import com.attractive.deer.util.data.right
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -19,7 +19,6 @@ import kotlin.time.seconds
 
 
 @OptIn(ExperimentalTime::class)
-@ObsoleteCoroutinesApi
 class KakaoBookRepositoryImpl(
     private val errorMapper: ErrorMapper,
     private val kakaoBookApiservice: KakaoBookApiService,

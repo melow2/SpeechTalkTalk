@@ -4,9 +4,9 @@ import com.jakewharton.rxrelay3.BehaviorRelay
 import com.jakewharton.rxrelay3.PublishRelay
 import com.khs.kakaopay.domain.getMessage
 import com.khs.kakaopay.domain.thread.RxSchedulerProvider
-import com.lovely.deer.base.BaseViewModel
-import com.lovely.deer.util.data.exhaustMap
-import com.lovely.deer.util.data.notOfType
+import com.attractive.deer.base.BaseViewModel
+import com.attractive.deer.util.data.exhaustMap
+import com.attractive.deer.util.data.notOfType
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableTransformer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -30,16 +30,19 @@ class MainViewModel(
     private val searchProcessor =
         ObservableTransformer<MainViewIntent.SearchIntent, MainPartialChange> { _ ->
             searchText.switchMap { search ->
-                interactor.getKakaoBooks(page = START_PAGE, sizePerPage = PAGE_SIZE, query = search)
-                    .doOnNext {
-                        val messageFromError =
-                            (it as? MainPartialChange.Error ?: return@doOnNext).error.getMessage()
-                        sendEvent(
-                            MainSingleEvent.MessageEvent(
-                                "[ERROR] 검색어: '$search', 메세지: $messageFromError"
-                            )
+                interactor.getKakaoBooks(
+                    page = START_PAGE,
+                    sizePerPage = PAGE_SIZE,
+                    query = search
+                ).doOnNext {
+                    val messageFromError =
+                        (it as? MainPartialChange.Error ?: return@doOnNext).error.getMessage()
+                    sendEvent(
+                        MainSingleEvent.MessageEvent(
+                            "[ERROR] 검색어: '$search', 메세지: $messageFromError"
                         )
-                    }
+                    )
+                }
             }
         }
 
@@ -55,16 +58,15 @@ class MainViewModel(
                         page = page,
                         sizePerPage = PAGE_SIZE,
                         query = searchText
-                    )
-                        .doOnNext {
-                            val messageFromError = (it as? MainPartialChange.Error
-                                ?: return@doOnNext).error.getMessage()
-                            sendEvent(
-                                MainSingleEvent.MessageEvent(
-                                    "[ERROR] - loadNextPage(),  검색어: '$searchText', 메세지: $messageFromError"
-                                )
+                    ).doOnNext {
+                        val messageFromError = (it as? MainPartialChange.Error
+                            ?: return@doOnNext).error.getMessage()
+                        sendEvent(
+                            MainSingleEvent.MessageEvent(
+                                "[ERROR] - loadNextPage(),  검색어: '$searchText', 메세지: $messageFromError"
                             )
-                        }
+                        )
+                    }
                 }
         }
 

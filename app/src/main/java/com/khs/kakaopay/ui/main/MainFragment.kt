@@ -12,9 +12,9 @@ import com.jakewharton.rxbinding4.recyclerview.scrollEvents
 import com.khs.kakaopay.R
 import com.khs.kakaopay.activity.MainActivity
 import com.khs.kakaopay.databinding.FragmentMainBinding
-import com.lovely.deer.util.data.observe
-import com.lovely.deer.util.data.observeEvent
-import com.lovely.deer.util.data.toast
+import com.attractive.deer.util.data.observe
+import com.attractive.deer.util.data.observeEvent
+import com.attractive.deer.util.data.toast
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo

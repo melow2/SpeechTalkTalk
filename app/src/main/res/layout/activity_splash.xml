@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_FAE900">
 
-    <com.lovely.deer.util.layout.StatusBarLayout
+    <com.attractive.deer.util.layout.StatusBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"

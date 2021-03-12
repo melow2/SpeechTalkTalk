@@ -18,8 +18,8 @@ import com.khs.kakaopay.R
 import com.khs.kakaopay.databinding.ItemMainRecyclerContentBinding
 import com.khs.kakaopay.databinding.ItemMainRecyclerErrorBinding
 import com.khs.kakaopay.databinding.ItemMainRecyclerLoadingBinding
-import com.lovely.deer.util.data.inflater
-import com.lovely.deer.util.data.onlyBind
+import com.attractive.deer.util.data.inflater
+import com.attractive.deer.util.data.onlyBind
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 

@@ -22,14 +22,11 @@ buildscript {
     repositories {
         google()
         jcenter()
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
     }
     dependencies {
         classpath("com.android.tools.build:gradle:4.0.1")
         classpath(kotlin("gradle-plugin", kotlinVersion))
         classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$navVersion")
-        // classpath("com.google.gms:google-services:4.3.3")
-        // classpath("com.google.firebase:firebase-crashlytics-gradle:2.2.0")
     }
 }
 
@@ -39,8 +36,6 @@ allprojects {
         jcenter()
         mavenCentral()
         maven(url = "https://jitpack.io")
-        maven(url = "http://dl.bintray.com/amulyakhare/maven")
-        maven(url = "https://dl.bintray.com/kotlin/kotlin-eap")
     }
 }
 

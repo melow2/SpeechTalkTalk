@@ -1,7 +1,5 @@
 package com.khs.kakaopay.data.remote
 
-import android.content.Context
-import com.lovely.deer.util.SecureSharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

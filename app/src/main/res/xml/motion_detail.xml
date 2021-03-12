@@ -6,9 +6,7 @@
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@+id/start"
         motion:duration="500">
-  <!--      <OnSwipe
-            motion:touchAnchorId="@id/bottom_frame"
-            motion:touchRegionId="@id/bottom_frame" />-->
+
     </Transition>
 
     <ConstraintSet android:id="@+id/start">

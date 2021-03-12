@@ -6,8 +6,8 @@ import com.khs.kakaopay.domain.thread.CoroutinesDispatcherProvider
 import com.khs.kakaopay.domain.thread.CoroutinesDispatcherProviderImpl
 import com.khs.kakaopay.domain.thread.RxSchedulerProvider
 import com.khs.kakaopay.domain.thread.RxSchedulerProviderImpl
-import com.lovely.deer.util.SecureSharedPreferences
-import com.lovely.deer.util.SecureSharedPreferences.Companion.getPreferences
+import com.attractive.deer.util.SecureSharedPreferences
+import com.attractive.deer.util.SecureSharedPreferences.Companion.getPreferences
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.CoroutineScope

@@ -21,8 +21,8 @@ import com.khs.kakaopay.R
 import com.khs.kakaopay.activity.MainActivity
 import com.khs.kakaopay.databinding.FragmentDetailBinding
 import com.khs.kakaopay.ui.main.MainAdapter
-import com.lovely.deer.base.BaseFragment
-import com.lovely.deer.util.data.toast
+import com.attractive.deer.base.BaseFragment
+import com.attractive.deer.util.data.toast
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 import net.cachapa.expandablelayout.util.FastOutSlowInInterpolator

@@ -1,14 +1,12 @@
 package com.khs.kakaopay.ui.detail
 
+import com.attractive.deer.base.BaseViewModel
+import com.attractive.deer.util.data.exhaustMap
+import com.attractive.deer.util.data.notOfType
 import com.jakewharton.rxrelay3.BehaviorRelay
 import com.jakewharton.rxrelay3.PublishRelay
 import com.khs.kakaopay.domain.getMessage
 import com.khs.kakaopay.domain.thread.RxSchedulerProvider
-import com.khs.kakaopay.ui.main.MainPartialChange
-import com.khs.kakaopay.ui.main.MainSingleEvent
-import com.lovely.deer.base.BaseViewModel
-import com.lovely.deer.util.data.exhaustMap
-import com.lovely.deer.util.data.notOfType
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableTransformer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -39,7 +37,8 @@ class DetailViewModel(
                 .map { it.first to it.second }
                 .exhaustMap {
                     interactor.toggleLike(it.second.books).doOnNext { change ->
-                        val messageFromError = (change as? DetailPartialChange.Error ?: return@doOnNext).error.getMessage()
+                        val messageFromError = (change as? DetailPartialChange.Error
+                            ?: return@doOnNext).error.getMessage()
                         sendEvent(
                             DetailSingleEvent.MessageEvent(
                                 "[ERROR]  메세지: $messageFromError"

@@ -3,7 +3,7 @@ package com.khs.kakaopay.ui.main
 import com.khs.kakaopay.domain.repository.KakaoBookRepository
 import com.khs.kakaopay.domain.thread.CoroutinesDispatcherProvider
 import com.khs.kakaopay.ui.main.MainPartialChange.Loading
-import com.lovely.deer.util.data.fold
+import com.attractive.deer.util.data.fold
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.rx3.rxObservable
