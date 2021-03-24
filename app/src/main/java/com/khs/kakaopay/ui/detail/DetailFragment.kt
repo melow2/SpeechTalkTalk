@@ -23,6 +23,7 @@ import com.khs.kakaopay.databinding.FragmentDetailBinding
 import com.khs.kakaopay.ui.main.MainAdapter
 import com.attractive.deer.base.BaseFragment
 import com.attractive.deer.util.data.toast
+import com.khs.kakaopay.ui.main.MainFragment
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 import net.cachapa.expandablelayout.util.FastOutSlowInInterpolator
@@ -97,6 +98,7 @@ class DetailFragment : BaseFragment<
 
     override fun onDestroyView() {
         super.onDestroyView()
+        Timber.tag(TAG).d("onDestroyView()")
         mainActivity.hideLikeIfNeeded()
     }
 
@@ -117,16 +119,6 @@ class DetailFragment : BaseFragment<
         (mBinding as FragmentDetailBinding).run {
             startTransitions()
             val book = args.book
-            mainActivity.run {
-                setToolbarTitle(args.book.title ?: NO_TITLE)
-                invalidateOptionsMenu()
-                showLikeBtn()
-                likeBtn.clicks()
-                    .throttleFirst(100, TimeUnit.MILLISECONDS)
-                    .map { DetailViewIntent.Like }
-                    .subscribe(intentS)
-                    .addTo(compositeDisposable)
-            }
             tvSubTitle.text = book.publisher
             tvBigTitle.text = book.title
             if (!book.datetime.isNullOrEmpty()) {
@@ -149,6 +141,29 @@ class DetailFragment : BaseFragment<
         Observable.just(DetailViewIntent.Init(args.book)),
         intentS
     )
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        mainActivity.run {
+            invalidateOptionsMenu()
+            showLikeBtn()
+            likeBtn.clicks()
+                .throttleFirst(100, TimeUnit.MILLISECONDS)
+                .map { DetailViewIntent.Like }
+                .subscribe(intentS)
+                .addTo(compositeDisposable)
+        }
+    }
+
+    override fun onDestroy() {
+        Timber.tag(TAG).d("onDestroy()")
+        super.onDestroy()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Timber.tag(TAG).d("onDetach()")
+    }
 
     companion object {
         val TAG = DetailFragment::class.simpleName

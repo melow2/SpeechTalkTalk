@@ -20,33 +20,34 @@ import org.koin.dsl.module
 @ExperimentalCoroutinesApi
 val viewModelModule = module {
     scope<SplashActivity> { }
+    scope<MainFragment> {
+        scoped<MainInteractor> {
+            MainInteractorImpl(
+                kakaoBookRepository = get(named(NS_KAKAO_REPOSITORY_BOOK)),
+                dispatcherProvider = get()
+            )
+        }
+        viewModel {
+            MainViewModel(
+                interactor = get(),
+                rxSchedulerProvider = get()
+            )
+        }
+    }
+    scope<DetailFragment> {
+        scoped<DetailInteractor> {
+            DetaiInteractorImpl(
+                dispatcherProvider = get()
+            )
+        }
+        viewModel {
+            DetailViewModel(
+                interactor = get(),
+                rxSchedulerProvider = get()
+            )
+        }
+    }
     scope<MainActivity> {
-        scope<MainFragment> {
-            scoped<MainInteractor> {
-                MainInteractorImpl(
-                    kakaoBookRepository = get(named(NS_KAKAO_REPOSITORY_BOOK)),
-                    dispatcherProvider = get()
-                )
-            }
-            viewModel {
-                MainViewModel(
-                    interactor = get(),
-                    rxSchedulerProvider = get()
-                )
-            }
-        }
-        scope<DetailFragment> {
-            scoped<DetailInteractor> {
-                DetaiInteractorImpl(
-                    dispatcherProvider = get()
-                )
-            }
-            viewModel {
-                DetailViewModel(
-                    interactor = get(),
-                    rxSchedulerProvider = get()
-                )
-            }
-        }
+
     }
 }

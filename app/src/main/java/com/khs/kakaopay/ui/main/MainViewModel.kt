@@ -106,6 +106,11 @@ class MainViewModel(
             .addTo(compositeDisposable)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        Timber.tag(MainFragment.TAG).d("onCleared()")
+    }
+
     private companion object {
         private const val START_PAGE = 1
         private const val PAGE_SIZE = 50

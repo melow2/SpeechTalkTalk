@@ -138,6 +138,21 @@ class MainFragment : ScopeFragment() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onDestroyView() {
+        Timber.tag(TAG).d("onDestroyView()")
+        super.onDestroyView()
+    }
+
+    override fun onDestroy() {
+        Timber.tag(TAG).d("onDestroy()")
+        super.onDestroy()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        Timber.tag(TAG).d("onDetach()")
+    }
+
     companion object {
         val TAG = MainFragment::class.simpleName
         private const val TITLE = "카카오 도서 검색"

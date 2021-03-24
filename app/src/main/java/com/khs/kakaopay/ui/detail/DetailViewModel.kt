@@ -7,6 +7,7 @@ import com.jakewharton.rxrelay3.BehaviorRelay
 import com.jakewharton.rxrelay3.PublishRelay
 import com.khs.kakaopay.domain.getMessage
 import com.khs.kakaopay.domain.thread.RxSchedulerProvider
+import com.khs.kakaopay.ui.main.MainFragment
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.ObservableTransformer
 import io.reactivex.rxjava3.disposables.Disposable
@@ -73,6 +74,11 @@ class DetailViewModel(
 
         stateS.subscribeBy(onNext = ::setNewState)
             .addTo(compositeDisposable)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Timber.tag(DetailFragment.TAG).d("ViewModel:: onCleared()")
     }
 
     private companion object {

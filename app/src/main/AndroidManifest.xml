@@ -13,8 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.khs.kakaopay.activity.MainActivity"
-            android:screenOrientation="portrait" />
+            android:name="com.khs.kakaopay.activity.MainActivity" />
 
         <activity
             android:name="com.khs.kakaopay.activity.SplashActivity"
