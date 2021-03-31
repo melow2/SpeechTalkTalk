@@ -32,15 +32,15 @@ android {
 
     signingConfigs {
         create("release") {
-            keyAlias = "kakaopay"
-            keyPassword = "kakaopay"
-            storeFile = file("../kakaopay.jks")
-            storePassword = "kakaopay"
+            keyAlias = "speechtalk"
+            keyPassword = "speechtalk"
+            storeFile = file("../speechtalk.jks")
+            storePassword = "speechtalk"
         }
     }
 
     defaultConfig {
-        applicationId = "com.khs.coconut"
+        applicationId = "com.mindhub.speechtalk"
         minSdkVersion(23)
         targetSdkVersion(30)
         versionCode = 2
@@ -55,18 +55,18 @@ android {
             isDebuggable = false
             signingConfig = signingConfigs.getByName("release")
             proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
             applicationVariants.all {
                 outputs
-                        .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-                        .forEach { output ->
-                            output.outputFileName = output.outputFileName
-                                    .replace("app-", "kakao_pay_")
-                                    //.replace(".apk", "-${variant.versionName}.${variant.versionCode}.apk")
-                                    .replace(".apk", "_${versionName}.apk")
-                        }
+                    .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
+                    .forEach { output ->
+                        output.outputFileName = output.outputFileName
+                            .replace("app-", "speechtalk_")
+                            //.replace(".apk", "-${variant.versionName}.${variant.versionCode}.apk")
+                            .replace(".apk", "_${versionName}.apk")
+                    }
             }
         }
     }
@@ -161,6 +161,7 @@ dependencies {
     implementation("io.reactivex.rxjava3:rxkotlin:3.0.0")
     implementation("io.reactivex.rxjava3:rxjava:3.0.6")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation("com.mikhaellopez:rxanimation:2.0.0")
 
     // Glide
     implementation("com.github.bumptech.glide:glide:$glideVersion")
@@ -181,13 +182,14 @@ dependencies {
     implementation("com.airbnb.android:lottie:3.4.3")
     implementation("me.relex:circleindicator:2.1.4")
     implementation("com.github.cachapa:ExpandableLayout:2.9.2")
+    implementation("com.github.melow2:LovelyCalendar:1.2.1")
 
     testImplementation("junit:junit:4.13")
     androidTestImplementation("androidx.test:runner:1.3.0-alpha05")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.3.0-alpha05")
 
     // Commons-io
-    implementation ("commons-io:commons-io:2.6")
+    implementation("commons-io:commons-io:2.6")
 
     // Jsoup
     implementation("org.jsoup:jsoup:1.13.1")

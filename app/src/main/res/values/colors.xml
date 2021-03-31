@@ -7,24 +7,31 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-
-
     <color name="color_FF000000">#FF000000</color>
     <color name="color_FFFFFFFF">#FFFFFFFF</color>
     <color name="color_ff7e96">#ff7e96</color>
+    <color name="color_96c8ff">#96c8ff</color>
     <color name="color_ffecef">#ffecef</color>
+    <color name="color_3c6eff">#3c6eff</color>
     <color name="color_fff8f9">#fff8f9</color>
     <color name="color_ff859b">#ff859b</color>
+    <color name="color_cfe3f9">#cfe3f9</color>
     <color name="color_808080">#808080</color>
+    <color name="color_e4edfe">#e4edfe</color>
+    <color name="color_f5505a">#f5505a</color>
     <color name="color_dfdfdf">#dfdfdf</color>
     <color name="color_000000">#000000</color>
     <color name="color_3f3f3f">#3f3f3f</color>
     <color name="color_ff0000">#ff0000</color>
     <color name="color_5d5d5d">#5d5d5d</color>
     <color name="color_ffe0e5">#ffe0e5</color>
+    <color name="color_222222">#222222</color>
     <color name="color_fae5e9">#fae5e9</color>
     <color name="color_595959">#595959</color>
     <color name="color_eaeaea">#eaeaea</color>
+    <color name="color_ff848b">#ff848b</color>
+    <color name="color_a1b9ff">#a1b9ff</color>
+    <color name="color_cbcbcb">#cbcbcb</color>
     <color name="color_696969">#696969</color>
     <color name="color_030303">#030303</color>
     <color name="color_252525">#252525</color>
@@ -37,6 +44,8 @@
     <color name="color_fff2f4">#fff2f4</color>
     <color name="color_ffdce3">#ffdce3</color>
     <color name="color_1f1f1f">#1f1f1f</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_0082d7">#0082d7</color>
     <color name="color_FAE900">#FAE900</color>
     <color name="color_80000000">#80000000</color>
     <color name="color_41808080">#41808080</color>

@@ -1,0 +1,30 @@
+package com.mindhub.speechtalk.ui.login
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import com.mindhub.speechtalk.R
+import com.mindhub.speechtalk.activity.MainActivity
+import com.mindhub.speechtalk.databinding.FragmentMainBinding
+import org.koin.androidx.scope.ScopeFragment
+
+class LoginFragment : ScopeFragment() {
+
+    lateinit var mBinding: FragmentMainBinding
+    private val mainActivity get() = requireActivity() as MainActivity
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
+        return mBinding.root
+    }
+
+    companion object {
+        val TAG = LoginFragment::class.simpleName
+    }
+}

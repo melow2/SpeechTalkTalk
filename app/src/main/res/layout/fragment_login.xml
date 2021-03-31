@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_cfe3f9">
+
+        <LinearLayout
+            android:id="@+id/root_lyt_id"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_login_id_password"
+            android:padding="8dp"
+            app:layout_constraintBottom_toTopOf="@id/root_lyt_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintWidth_percent="0.3">
+
+            <EditText
+                android:id="@+id/edt_id"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@null"
+                android:gravity="center"
+                android:singleLine="true"
+                android:imeOptions="flagNoExtractUi"
+                android:textColor="@color/color_222222"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                tools:text="IDsmsHERE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/root_lyt_password"
+            android:layout_width="0dp"
+            android:padding="8dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_login_id_password"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_id"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_id"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <EditText
+                android:id="@+id/edt_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@null"
+                android:gravity="center"
+                android:singleLine="true"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textPassword"
+                android:textColor="@color/color_222222"
+                android:textSize="14sp"
+                android:textStyle="normal"
+                tools:text="IDsmsHERE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/root_lyt_btn_login"
+            android:layout_width="0dp"
+            android:padding="8dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_btn_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_id"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_id"
+            app:layout_constraintTop_toBottomOf="@+id/root_lyt_password">
+            <TextView
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="50dp"
+                android:paddingTop="12dp"
+                android:paddingEnd="50dp"
+                android:paddingBottom="12dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:fontFamily="@font/nanum_square_eb"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="@string/login"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
