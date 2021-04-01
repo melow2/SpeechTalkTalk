@@ -6,7 +6,7 @@ import com.mindhub.speechtalk.ui.listening.Listening1PartialChange.*
 import io.reactivex.rxjava3.core.Observable
 import kotlinx.coroutines.rx3.rxObservable
 
-class Listening1InteractorImpl(
+class ListeningInteractorImpl(
     private val dispatcherProvider: CoroutinesDispatcherProvider,
     private val listeningRepository: ListeningRepository
 ):Listening1Interactor {

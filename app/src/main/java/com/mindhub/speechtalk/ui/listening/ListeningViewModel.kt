@@ -13,7 +13,7 @@ import io.reactivex.rxjava3.kotlin.ofType
 import io.reactivex.rxjava3.kotlin.subscribeBy
 import timber.log.Timber
 
-class Listening1ViewModel(
+class ListeningViewModel(
     private val interactor: Listening1Interactor,
     private val rxSchedulerProvider: RxSchedulerProvider
 ) : BaseViewModel<Listening1Intent, Listening1ViewState, Listening1SingleEvent>(Listening1ViewState.initial()) {
@@ -60,9 +60,9 @@ class Listening1ViewModel(
 
     init {
         intentS.compose(intentFilter).share()
-            .doOnNext { Timber.tag(Listening1Fragment.TAG).d("intent:: $it") }
+            .doOnNext { Timber.tag(ListeningFragment.TAG).d("intent:: $it") }
             .compose(intentToViewState)
-            .doOnNext { Timber.tag(Listening1Fragment.TAG).d("state:: $it") }
+            .doOnNext { Timber.tag(ListeningFragment.TAG).d("state:: $it") }
             .subscribeBy(onNext = stateS::accept)
             .addTo(compositeDisposable)
 

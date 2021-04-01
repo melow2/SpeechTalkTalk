@@ -7,7 +7,18 @@ import com.mindhub.speechtalk.domain.SpeechTalkAppError
 import com.mindhub.speechtalk.ui.listening.Listening1ViewState.State.*
 import io.reactivex.rxjava3.core.Observable
 
-
+/**
+ * 1) 서버로 듣기 1단계를 수행한다고 데이터를 전송.
+ * 2) 서버로 부터 듣기 1단계 문제정보(정답,이미지 등)를 받음
+ * 3) 문제정보를 화면에 세팅.
+ * 4) 그리고 이미지 클릭 시 서버로 데이터 전달.
+ * 5) 정답 일경우와 정답이 아닐 경우로 응답을 받음.
+ * - 그림 순서대로 고르기 같은 문제일 경우, 순서를 모두 맞췄을 때 최종 정답 flag를 받아야 함.
+ *
+ * @author Scarlett
+ * @version 1.0.0
+ * @since 2021-03-31 오후 7:09
+ **/
 sealed class Listening1Intent : MviIntent {
     object Init : Listening1Intent()
     data class ImageClick(val index: Int) : Listening1Intent()
@@ -28,7 +39,8 @@ data class Listening1ViewState(
             state = DEFAULT
         )
     }
-    enum class State { DEFAULT, IDLE, INIT, LOADING, WRONG, ANSWER, ERROR, HINT }
+
+    enum class State { DEFAULT, IDLE, INIT, LOADING, WRONG, CORRECT, ERROR, HINT }
 }
 
 sealed class Listening1SingleEvent : MviSingleEvent {
@@ -47,7 +59,7 @@ sealed class Listening1PartialChange {
                 state.copy(error = error, state = ERROR)
             }
             is Action -> {
-                state.copy(choice = index, state = if (state.answer == index) ANSWER else WRONG)
+                state.copy(choice = index, state = if (state.answer == index) CORRECT else WRONG)
             }
             Loading -> {
                 state.copy(state = LOADING)
@@ -56,6 +68,7 @@ sealed class Listening1PartialChange {
             Hint -> state.copy(state = HINT)
         }
     }
+
     object Loading : Listening1PartialChange()
     data class Initialization(val info: String) : Listening1PartialChange()
     data class Action(val index: Int) : Listening1PartialChange()

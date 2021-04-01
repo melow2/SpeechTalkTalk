@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/color_e4edfe">
+        android:background="@drawable/bg_listening">
 
         <LinearLayout
             android:id="@+id/root_lyt_comment"
@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn_white_radius_50"
+            app:layout_constraintWidth_percent="0.917"
             app:layout_constraintEnd_toEndOf="@+id/root_lyt_btn_fourth"
             app:layout_constraintStart_toStartOf="@+id/root_lyt_btn_first"
             app:layout_constraintTop_toTopOf="parent">
@@ -49,7 +50,7 @@
             app:layout_constraintEnd_toStartOf="@id/root_lyt_btn_second"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.20">
+            app:layout_constraintWidth_percent="0.22">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btn_first_anim_area"
@@ -79,7 +80,7 @@
             app:layout_constraintEnd_toStartOf="@id/root_lyt_btn_third"
             app:layout_constraintStart_toEndOf="@+id/root_lyt_btn_first"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.20">
+            app:layout_constraintWidth_percent="0.22">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btn_second_anim_area"
@@ -109,7 +110,7 @@
             app:layout_constraintEnd_toStartOf="@id/root_lyt_btn_fourth"
             app:layout_constraintStart_toEndOf="@+id/root_lyt_btn_second"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.20">
+            app:layout_constraintWidth_percent="0.22">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btn_third_anim_area"
@@ -139,7 +140,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/root_lyt_btn_third"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.20">
+            app:layout_constraintWidth_percent="0.22">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btn_fourth_anim_area"

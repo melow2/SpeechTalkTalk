@@ -3,6 +3,7 @@ package com.mindhub.speechtalk.ui.listening
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.attractive.deer.base.BaseFragment
 import com.jakewharton.rxbinding4.view.clicks
 import com.jakewharton.rxrelay3.PublishRelay
@@ -10,9 +11,9 @@ import com.mikhaellopez.rxanimation.RxAnimation
 import com.mikhaellopez.rxanimation.alpha
 import com.mikhaellopez.rxanimation.backgroundColor
 import com.mikhaellopez.rxanimation.fadeOut
-import com.mindhub.speechtalk.R
+import com.mindhub.speechtalk.*
 import com.mindhub.speechtalk.activity.MainActivity
-import com.mindhub.speechtalk.databinding.FragmentListening1Binding
+import com.mindhub.speechtalk.databinding.FragmentListeningBinding
 import com.mindhub.speechtalk.ui.listening.Listening1SingleEvent.AnswerSound
 import com.mindhub.speechtalk.ui.listening.Listening1SingleEvent.WrongSound
 import com.mindhub.speechtalk.ui.listening.Listening1ViewState.State.*
@@ -24,14 +25,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-class Listening1Fragment : BaseFragment<
+class ListeningFragment : BaseFragment<
         Listening1Intent,
         Listening1ViewState,
         Listening1SingleEvent,
-        Listening1ViewModel,
-        FragmentListening1Binding>(R.layout.fragment_listening_1) {
+        ListeningViewModel,
+        FragmentListeningBinding>(R.layout.fragment_listening) {
 
-    override val mViewModel: Listening1ViewModel by viewModel()
+    override val mViewModel: ListeningViewModel by viewModel()
     private val mainActivity get() = requireActivity() as MainActivity
     private val intentS = PublishRelay.create<Listening1Intent>()
 
@@ -52,7 +53,11 @@ class Listening1Fragment : BaseFragment<
         val answerView = getChoiceView(answer)
         val choiceView = getChoiceView(choice)
         when (state) {
-            ANSWER -> answerView?.correctAnimation(false)?.subscribe()?.addTo(compositeDisposable)
+            CORRECT -> {
+                answerView?.correctAnimation(false)?.andThen{
+                  findNavController().navigate(ListeningFragmentDirections.actionListening1FragmentToSpeaking1Fragment())
+                }?.subscribe()?.addTo(compositeDisposable)
+            }
             WRONG -> choiceView?.wrongAnimation(choice)?.subscribe()?.addTo(compositeDisposable)
             HINT -> answerView?.correctAnimation(true)?.subscribe()?.addTo(compositeDisposable)
             else -> { }
@@ -61,10 +66,10 @@ class Listening1Fragment : BaseFragment<
 
     private fun getChoiceView(choice: Int?): View? {
         return when (choice) {
-            CARD_FIRST -> (mBinding as FragmentListening1Binding).btnFirstAnimArea
-            CARD_SECOND -> (mBinding as FragmentListening1Binding).btnSecondAnimArea
-            CARD_THIRD -> (mBinding as FragmentListening1Binding).btnThirdAnimArea
-            CARD_FOURTH -> (mBinding as FragmentListening1Binding).btnFourthAnimArea
+            CARD_FIRST -> (mBinding as FragmentListeningBinding).btnFirstAnimArea
+            CARD_SECOND -> (mBinding as FragmentListeningBinding).btnSecondAnimArea
+            CARD_THIRD -> (mBinding as FragmentListeningBinding).btnThirdAnimArea
+            CARD_FOURTH -> (mBinding as FragmentListeningBinding).btnFourthAnimArea
             else -> null
         }
     }
@@ -74,7 +79,7 @@ class Listening1Fragment : BaseFragment<
         initListener()
     }
 
-    private fun initListener() = (mBinding as FragmentListening1Binding).run {
+    private fun initListener() = (mBinding as FragmentListeningBinding).run {
         rootLytBtnFirst.throttleClick()
             .switchMapCompletable { // at least one
                 btnFirstAnimArea.beforeAnimation()
@@ -121,7 +126,7 @@ class Listening1Fragment : BaseFragment<
             .addTo(compositeDisposable)
     }
 
-    private fun initView() = (mBinding as FragmentListening1Binding).run {
+    private fun initView() = (mBinding as FragmentListeningBinding).run {
         tvProblemGuide.textSize = mainActivity.commentSize
         tvCurrentEpisode.textSize = mainActivity.buttonSize
         tvHint.textSize = mainActivity.buttonSize
@@ -166,15 +171,8 @@ class Listening1Fragment : BaseFragment<
         Observable.just(Listening1Intent.Init), intentS
     )
 
-    private fun View.throttleClick(duration: Long = ANIMATION_DURATION * 2): Observable<Unit> =
-        clicks().throttleFirst(duration, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-
     companion object {
-        private const val CARD_FIRST = 1
-        private const val CARD_SECOND = 2
-        private const val CARD_THIRD = 3
-        private const val CARD_FOURTH = 4
-        private const val ANIMATION_DURATION = 700L // 0.5s
-        val TAG = Listening1Fragment::class.simpleName
+
+        val TAG = ListeningFragment::class.simpleName
     }
 }

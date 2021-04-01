@@ -15,7 +15,17 @@
     </fragment>
     <fragment
         android:id="@+id/listening1Fragment"
-        android:name="com.mindhub.speechtalk.ui.listening.Listening1Fragment"
+        android:name="com.mindhub.speechtalk.ui.listening.ListeningFragment"
         android:label="Listening1Fragment"
-        tools:layout="@layout/fragment_listening_1" />
+        tools:layout="@layout/fragment_listening">
+        <action
+            android:id="@+id/action_listening1Fragment_to_speaking1Fragment"
+            app:destination="@id/speaking1Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/speaking1Fragment"
+        android:name="com.mindhub.speechtalk.ui.speaking.type1.Speaking1Fragment"
+        android:label="Speaking1Fragment"
+        tools:layout="@layout/fragment_speaking_1">
+    </fragment>
 </navigation>
