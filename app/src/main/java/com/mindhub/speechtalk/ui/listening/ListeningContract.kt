@@ -27,6 +27,7 @@ sealed class Listening1Intent : MviIntent {
 
 data class Listening1ViewState(
     val answer: Int?,
+    val hint:String?,
     val choice: Int?,
     val error: SpeechTalkAppError?,
     val state: State?
@@ -34,6 +35,7 @@ data class Listening1ViewState(
     companion object {
         fun initial() = Listening1ViewState(
             answer = null,
+            hint = null,
             choice = null,
             error = null,
             state = DEFAULT
@@ -65,14 +67,14 @@ sealed class Listening1PartialChange {
                 state.copy(state = LOADING)
             }
             Idle -> state.copy(state = IDLE)
-            Hint -> state.copy(state = HINT)
+            is Hint -> state.copy(state = HINT,hint = hint)
         }
     }
 
     object Loading : Listening1PartialChange()
     data class Initialization(val info: String) : Listening1PartialChange()
     data class Action(val index: Int) : Listening1PartialChange()
-    object Hint : Listening1PartialChange()
+    data class Hint(val hint:String) : Listening1PartialChange()
     data class Error(val error: SpeechTalkAppError) : Listening1PartialChange()
     object Idle : Listening1PartialChange()
 }

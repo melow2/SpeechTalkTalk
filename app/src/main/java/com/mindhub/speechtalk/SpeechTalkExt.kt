@@ -1,12 +1,14 @@
 package com.mindhub.speechtalk
 
 import android.content.Context
+import android.media.MediaPlayer
 import android.net.Uri
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import com.attractive.deer.util.data.MediaStoreAudio

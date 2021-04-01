@@ -36,8 +36,32 @@ class Speaking1InteractorImpl(
 
     override fun play(): Observable<Speaking1PartialChange> {
         return rxObservable(dispatcherProvider.main) {
-            send(Idle)
             send(Play)
+        }
+    }
+
+    override fun stop(): Observable<Speaking1PartialChange> {
+        return rxObservable(dispatcherProvider.main) {
+            send(Stop)
+        }
+    }
+
+    override fun recordCancel(): Observable<Speaking1PartialChange> {
+        return rxObservable(dispatcherProvider.main) {
+            send(RecordCancel)
+        }
+    }
+
+    override fun hint(index: Int): Observable<Speaking1PartialChange> {
+        return rxObservable(dispatcherProvider.main) {
+            send(Idle)
+            val hint = when (index) {
+                1 -> "힌트1"
+                2 -> "힌트2"
+                3 -> "힌트3"
+                else -> "힌트없음"
+            }
+            send(Hint(hint))
         }
     }
 

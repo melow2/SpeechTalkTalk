@@ -26,7 +26,7 @@ class ListeningInteractorImpl(
     override fun hint(): Observable<Listening1PartialChange> {
         return rxObservable(dispatcherProvider.main) {
             send(Idle)
-            send(Hint)
+            send(Hint("힌트"))
         }
     }
 

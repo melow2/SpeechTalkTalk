@@ -230,7 +230,7 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root_lyt_btn_hint1"
+            android:id="@+id/btn_hint1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -266,7 +266,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root_lyt_btn_hint2"
+            android:id="@+id/btn_hint2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
@@ -274,7 +274,7 @@
             android:background="@drawable/bg_btn_login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/root_lyt_comment"
-            app:layout_constraintEnd_toStartOf="@id/root_lyt_btn_hint1">
+            app:layout_constraintEnd_toStartOf="@id/btn_hint1">
 
             <ImageView
                 android:id="@+id/iv_star2"
@@ -304,7 +304,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root_lyt_btn_hint3"
+            android:id="@+id/btn_hint3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="30dp"
@@ -312,7 +312,7 @@
             android:background="@drawable/bg_btn_login"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/root_lyt_comment"
-            app:layout_constraintEnd_toStartOf="@id/root_lyt_btn_hint2">
+            app:layout_constraintEnd_toStartOf="@id/btn_hint2">
 
             <ImageView
                 android:id="@+id/iv_star3"

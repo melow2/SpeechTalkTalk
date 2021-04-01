@@ -48,7 +48,7 @@ class ListeningFragment : BaseFragment<
     }
 
     override fun render(viewState: Listening1ViewState) {
-        val (answer, choice, error, state) = viewState
+        val (answer, hint,choice, error, state) = viewState
         Timber.tag(TAG).d("state: $state, answer: $answer, choice: $choice, error: $error")
         val answerView = getChoiceView(answer)
         val choiceView = getChoiceView(choice)

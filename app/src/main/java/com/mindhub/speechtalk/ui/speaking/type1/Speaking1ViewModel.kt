@@ -49,12 +49,36 @@ class Speaking1ViewModel(
             }
         }
 
+    private val stopProcessor =
+        ObservableTransformer<Speaking1Intent.Stop, Speaking1PartialChange> {
+            it.flatMap {
+                interactor.stop()
+            }
+        }
+
+    private val recordCancelProcessor =
+        ObservableTransformer<Speaking1Intent.RecordCancle, Speaking1PartialChange> {
+            it.flatMap {
+                interactor.recordCancel()
+            }
+        }
+
+    private val hintProcessor =
+        ObservableTransformer<Speaking1Intent.Hint, Speaking1PartialChange> {
+            it.flatMap {
+                interactor.hint(it.index)
+            }
+        }
+
     private val intentToViewState = ObservableTransformer<Speaking1Intent, Speaking1ViewState> {
         it.publish { intentObservable ->
             Observable.mergeArray(
                 intentObservable.ofType<Speaking1Intent.Init>().compose(initProcessor),
                 intentObservable.ofType<Speaking1Intent.Record>().compose(recordProcessor),
                 intentObservable.ofType<Speaking1Intent.Play>().compose(playProcessor),
+                intentObservable.ofType<Speaking1Intent.Stop>().compose(stopProcessor),
+                intentObservable.ofType<Speaking1Intent.Hint>().compose(hintProcessor),
+                intentObservable.ofType<Speaking1Intent.RecordCancle>().compose(recordCancelProcessor),
                 intentObservable.ofType<Speaking1Intent.StopWithRecognition>().compose(recognitionProcessor)
             )
         }.scan(intialState) { state, change -> change.reducer(state) }

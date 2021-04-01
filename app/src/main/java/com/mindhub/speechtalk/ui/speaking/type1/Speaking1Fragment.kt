@@ -12,6 +12,7 @@ import com.attractive.deer.util.data.MediaStoreAudio
 import com.attractive.deer.util.data.getDataFromContentUri
 import com.attractive.deer.util.data.toast
 import com.jakewharton.rxrelay3.PublishRelay
+import com.mikhaellopez.rxanimation.alpha
 import com.mikhaellopez.rxanimation.backgroundColor
 import com.mikhaellopez.rxanimation.fadeIn
 import com.mindhub.speechtalk.*
@@ -21,8 +22,10 @@ import com.mindhub.speechtalk.databinding.FragmentSpeaking1Binding
 import com.mindhub.speechtalk.ui.speaking.type1.Speaking1ViewState.State.*
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class Speaking1Fragment : BaseFragment<
         Speaking1Intent,
@@ -34,6 +37,7 @@ class Speaking1Fragment : BaseFragment<
     override val mViewModel: Speaking1ViewModel by viewModel()
     private val mainActivity get() = requireActivity() as MainActivity
     private val intentS = PublishRelay.create<Speaking1Intent>()
+    private val progressObservable = PublishSubject.create<Long>()
     private val mediaPlayer = MediaPlayer().apply {
         setOnCompletionListener(this@Speaking1Fragment)
     }
@@ -56,7 +60,7 @@ class Speaking1Fragment : BaseFragment<
                         )
                     )
                 }
-            }
+            } else intentS.accept(Speaking1Intent.RecordCancle)
         }
 
     override fun handleEvent(event: Speaking1SingleEvent) {
@@ -78,7 +82,10 @@ class Speaking1Fragment : BaseFragment<
                         googleVoiceRecognitionLancher.launch(getRecognitionIntent())
                     }
                 }
-                STOP_WITH_RECOGNITION -> {
+                HINT -> {
+                    context?.toast(viewState.hint ?: "")
+                }
+                RECORD_STOP_WITH_RECOGNITION -> {
                     Timber.tag(TAG_STT)
                         .d("mediaFile:${viewState.recordFile}, voiceRecord:${viewState.voiceRecord}")
                     mainActivity.recordButtonAnimation(
@@ -93,45 +100,88 @@ class Speaking1Fragment : BaseFragment<
                     if (rootLytBtnPlay.alpha != 1F) {
                         ivPlay.fadeIn().subscribe().addTo(compositeDisposable)
                         rootLytBtnPlay.fadeIn().subscribe().addTo(compositeDisposable)
+                    } else {
+                        Unit
                     }
                 }
 
                 PLAYING -> {
+                    // button animation.
                     btnRecordOrStop.backgroundColor(
                         ContextCompat.getColor(mainActivity, R.color.color_d6222b),
                         ContextCompat.getColor(mainActivity, R.color.color_cbcbcb),
                         duration = ANIMATION_DURATION, reverse = false
-                    ).andThen{
+                    ).andThen {
                         btnRecordOrStop.isClickable = false
                     }.subscribe().addTo(compositeDisposable)
+
+                    // mediaplayer setting.
                     mediaPlayer.run {
                         reset()
                         setDataSource(viewState.recordFile?.absolutePath)
                         prepare()
                         start()
                     }
+
+                    // progressbar setting.
+                    progressBar.max = mediaPlayer.duration
+                    progressObservable.mergeWith(Observable.interval(1, TimeUnit.MILLISECONDS))
+                        .takeUntil { (it >= mediaPlayer.duration) }
+                        .doOnComplete {
+                            progressBar.progress = 0
+                        }.share()
+                        .subscribe {
+                            progressBar.progress = it.toInt()
+                        }.addTo(compositeDisposable)
+                }
+
+                PLAYING_STOP -> {
+                    if (mediaPlayer.isPlaying) {
+                        kotlin.runCatching {
+                            mediaPlayer.stop()
+                            progressObservable.onNext(mediaPlayer.duration.toLong())
+                        }.onSuccess {
+                            onPlayCompleteAnimation()
+                        }
+                    } else {
+                        Unit
+                    }
+                }
+
+                RECORD_CANCEL -> {
+                    mainActivity.recordButtonAnimation(
+                        ivRecord,
+                        ivRecordStop,
+                        btnRecordOrStop,
+                        false
+                    )
+                        .subscribe().addTo(compositeDisposable)
                 }
 
                 else -> {
+
                 }
             }
         }
     }
 
-    override fun onCompletion(mp: MediaPlayer?) {
+    private fun onPlayCompleteAnimation() {
         mBinding?.run {
             mainActivity.playButtonAnimation(ivPlay, ivPlayStop, btnPlay, false)
-                .andThen(btnRecordOrStop.backgroundColor(
-                    ContextCompat.getColor(mainActivity, R.color.color_cbcbcb),
-                    ContextCompat.getColor(mainActivity, R.color.color_d6222b),
-                    duration = ANIMATION_DURATION, reverse = false
-                )).andThen{
+                .andThen(
+                    btnRecordOrStop.backgroundColor(
+                        ContextCompat.getColor(mainActivity, R.color.color_cbcbcb),
+                        ContextCompat.getColor(mainActivity, R.color.color_d6222b),
+                        duration = ANIMATION_DURATION, reverse = false
+                    )
+                ).andThen {
                     btnRecordOrStop.isClickable = true
                 }.subscribe()
                 .addTo(compositeDisposable)
         }
     }
 
+    override fun onCompletion(mp: MediaPlayer?) = onPlayCompleteAnimation()
     override fun onDetach() {
         super.onDetach()
         mediaPlayer.release()
@@ -153,10 +203,9 @@ class Speaking1Fragment : BaseFragment<
                     ivRecordStop,
                     btnRecordOrStop,
                     recordFlag
-                )
-                    .andThen {
-                        if (recordFlag) intentS.accept(Speaking1Intent.Record)
-                    }
+                ).andThen {
+                    if (recordFlag) intentS.accept(Speaking1Intent.Record)
+                }
             }.subscribe()
             .addTo(compositeDisposable)
 
@@ -167,9 +216,33 @@ class Speaking1Fragment : BaseFragment<
                 mainActivity.playButtonAnimation(ivPlay, ivPlayStop, btnPlay, playFlag)
                     .andThen {
                         if (playFlag) intentS.accept(Speaking1Intent.Play)
+                        else intentS.accept(Speaking1Intent.Stop)
                     }
             }.subscribe()
             .addTo(compositeDisposable)
+
+
+        btnHint1.throttleClick()
+            .filter { mainActivity.permissionCheckFlag }
+            .switchMapCompletable {
+                btnHint1.alpha(1f).andThen { intentS.accept(Speaking1Intent.Hint(1)) }
+            }.subscribe()
+            .addTo(compositeDisposable)
+
+        btnHint2.throttleClick()
+            .filter { mainActivity.permissionCheckFlag }
+            .switchMapCompletable {
+                btnHint1.alpha(1f).andThen { intentS.accept(Speaking1Intent.Hint(2)) }
+            }.subscribe()
+            .addTo(compositeDisposable)
+
+        btnHint3.throttleClick()
+            .filter { mainActivity.permissionCheckFlag }
+            .switchMapCompletable {
+                btnHint1.alpha(1f).andThen { intentS.accept(Speaking1Intent.Hint(3)) }
+            }.subscribe()
+            .addTo(compositeDisposable)
+
     }
 
     private fun initView() = (mBinding as FragmentSpeaking1Binding).run {
