@@ -1,4 +1,4 @@
-package com.mindhub.speechtalk.domain.model.book
+package com.mindhub.speechtalk.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

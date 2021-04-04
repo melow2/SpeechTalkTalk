@@ -7,6 +7,7 @@ import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.attractive.deer.base.BaseFragment
 import com.attractive.deer.util.data.MediaStoreAudio
 import com.attractive.deer.util.data.getDataFromContentUri
@@ -20,6 +21,7 @@ import com.mindhub.speechtalk.activity.MainActivity
 import com.mindhub.speechtalk.activity.MainActivity.Companion.TAG_STT
 import com.mindhub.speechtalk.databinding.FragmentSpeaking1Binding
 import com.mindhub.speechtalk.ui.speaking.type1.Speaking1ViewState.State.*
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
@@ -93,16 +95,20 @@ class Speaking1Fragment : BaseFragment<
                         ivRecordStop,
                         btnRecordOrStop,
                         false
-                    )
-                        .subscribe().addTo(compositeDisposable)
-                    // 정답 일 경우
-                    if (viewState.voiceRecord == viewState.answer) context?.toast("정답입니다.")
-                    if (rootLytBtnPlay.alpha != 1F) {
-                        ivPlay.fadeIn().subscribe().addTo(compositeDisposable)
-                        rootLytBtnPlay.fadeIn().subscribe().addTo(compositeDisposable)
-                    } else {
-                        Unit
-                    }
+                    ).andThen {
+                        // if (viewState.voiceRecord == viewState.answer)  todo 정답일경우 로띠 실행.
+                        if (rootLytBtnPlay.alpha != 1F) {
+                            ivPlay.fadeIn().subscribe().addTo(compositeDisposable)
+                            rootLytBtnPlay.fadeIn().subscribe().addTo(compositeDisposable)
+                        }
+                        it.onComplete()
+                    }.delay(1000, TimeUnit.MILLISECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete {
+                            if (viewState.voiceRecord == viewState.answer)
+                                context?.toast("정답입니다.")
+                        }.subscribe()
+                        .addTo(compositeDisposable)
                 }
 
                 PLAYING -> {
@@ -242,6 +248,10 @@ class Speaking1Fragment : BaseFragment<
                 btnHint1.alpha(1f).andThen { intentS.accept(Speaking1Intent.Hint(3)) }
             }.subscribe()
             .addTo(compositeDisposable)
+
+        btnNext.setOnClickListener {
+            findNavController().navigate(Speaking1FragmentDirections.actionSpeaking1FragmentToWriting1Fragment())
+        }
 
     }
 

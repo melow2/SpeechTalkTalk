@@ -27,5 +27,13 @@
         android:name="com.mindhub.speechtalk.ui.speaking.type1.Speaking1Fragment"
         android:label="Speaking1Fragment"
         tools:layout="@layout/fragment_speaking_1">
+        <action
+            android:id="@+id/action_speaking1Fragment_to_writing1Fragment"
+            app:destination="@id/writing1Fragment" />
     </fragment>
+    <fragment
+        android:id="@+id/writing1Fragment"
+        android:name="com.mindhub.speechtalk.ui.writing.type1.Writing1Fragment"
+        android:label="Writing1Fragment"
+        tools:layout="@layout/fragment_writing_1"/>
 </navigation>

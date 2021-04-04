@@ -13,6 +13,10 @@ import com.mindhub.speechtalk.ui.speaking.type1.Speaking1Fragment
 import com.mindhub.speechtalk.ui.speaking.type1.Speaking1Interactor
 import com.mindhub.speechtalk.ui.speaking.type1.Speaking1InteractorImpl
 import com.mindhub.speechtalk.ui.speaking.type1.Speaking1ViewModel
+import com.mindhub.speechtalk.ui.writing.type1.Writing1Fragment
+import com.mindhub.speechtalk.ui.writing.type1.Writing1Interactor
+import com.mindhub.speechtalk.ui.writing.type1.Writing1InteractorImpl
+import com.mindhub.speechtalk.ui.writing.type1.Writing1ViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -45,6 +49,20 @@ val viewModelModule = module {
         }
         viewModel {
             Speaking1ViewModel(
+                interactor = get(),
+                rxSchedulerProvider = get()
+            )
+        }
+    }
+    scope<Writing1Fragment> {
+        scoped<Writing1Interactor> {
+            Writing1InteractorImpl(
+                dispatcherProvider = get(),
+                listeningRepository = get(named(NS_LISTENING_REPOSITORY))
+            )
+        }
+        viewModel {
+            Writing1ViewModel(
                 interactor = get(),
                 rxSchedulerProvider = get()
             )

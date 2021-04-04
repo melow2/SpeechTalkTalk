@@ -1,10 +1,9 @@
 package com.mindhub.speechtalk.data.remote.response.book
 
-import com.mindhub.speechtalk.domain.model.book.KakaoBook
+import com.mindhub.speechtalk.domain.model.KakaoBook
 
 
 object KakaoBookMapper {
-
     fun responseToKakaoBookListModel(response: KakaoBookResponse): KakaoBook {
         return KakaoBook(
             documents = response.documents?.map {

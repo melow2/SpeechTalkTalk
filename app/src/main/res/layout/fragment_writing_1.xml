@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_lyt_writing"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_listening">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_lyt_comment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_btn_white_radius_50"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.11"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.917">
+
+            <TextView
+                android:id="@+id/tv_problem_guide"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/nanum_square_eb"
+                android:gravity="center"
+                android:text="@string/comment_writing_1"
+                android:textColor="@color/color_222222"
+                tools:textSize="55sp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/root_lyt_btn_sound"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_comment"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_comment"
+            app:layout_constraintTop_toTopOf="@id/root_lyt_comment">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_sound"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_btn_sound"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/root_lyt_left_area"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toStartOf="@id/root_lyt_right_area"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4" />
+
+        <View
+            android:id="@+id/root_lyt_right_area"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/root_lyt_left_area"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/root_lyt_left_target_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/root_lyt_left_botttom_1"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="@id/root_lyt_left_area"
+            app:layout_constraintStart_toStartOf="@id/root_lyt_left_area"
+            app:layout_constraintTop_toTopOf="@id/root_lyt_left_area"
+            app:layout_constraintWidth_percent="0.2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_writing_card">
+                <ImageView
+                    android:id="@+id/iv_left_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/sample1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/root_lyt_left_botttom_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_dfecff_radius_50"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_left_area"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toStartOf="@id/root_lyt_left_botttom_2"
+            app:layout_constraintStart_toStartOf="@id/root_lyt_left_area"
+            app:layout_constraintTop_toBottomOf="@id/root_lyt_left_target_view"
+            app:layout_constraintWidth_percent="0.13" />
+
+        <TextView
+            android:id="@+id/tv_bottom_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="@string/left_answer_temp"
+            android:textColor="@color/transparent"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/root_lyt_left_botttom_1"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_left_botttom_1"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_left_botttom_1"
+            app:layout_constraintTop_toTopOf="@+id/root_lyt_left_botttom_1"
+            tools:textSize="80sp" />
+
+        <View
+            android:id="@+id/root_lyt_left_botttom_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_dfecff_radius_50"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_left_area"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="@id/root_lyt_left_area"
+            app:layout_constraintStart_toEndOf="@id/root_lyt_left_botttom_1"
+            app:layout_constraintTop_toBottomOf="@id/root_lyt_left_target_view"
+            app:layout_constraintWidth_percent="0.13" />
+
+        <TextView
+            android:id="@+id/tv_bottom_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="@string/left_answer_temp"
+            android:textColor="@color/transparent"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/root_lyt_left_botttom_2"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_left_botttom_2"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_left_botttom_2"
+            app:layout_constraintTop_toTopOf="@+id/root_lyt_left_botttom_2"
+            tools:textSize="80sp" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_lyt_right_card_1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toTopOf="@id/root_lyt_right_card_3"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/root_lyt_right_card_2"
+            app:layout_constraintStart_toStartOf="@id/root_lyt_right_area"
+            app:layout_constraintTop_toTopOf="@id/root_lyt_right_area"
+            app:layout_constraintWidth_percent="0.16">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp">
+                <FrameLayout
+                    android:id="@+id/bg_right_card_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_matrix_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="참"
+            android:textColor="@color/color_222222"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_right_card_1"
+            app:layout_constraintEnd_toEndOf="@id/root_lyt_right_card_1"
+            app:layout_constraintStart_toStartOf="@id/root_lyt_right_card_1"
+            app:layout_constraintTop_toTopOf="@id/root_lyt_right_card_1"
+            tools:textSize="80sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_lyt_right_card_2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_btn_white_radius_50"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toTopOf="@id/root_lyt_right_card_4"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="@id/root_lyt_right_area"
+            app:layout_constraintStart_toEndOf="@id/root_lyt_right_card_1"
+            app:layout_constraintTop_toTopOf="@id/root_lyt_right_area"
+            app:layout_constraintWidth_percent="0.16">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp">
+                <FrameLayout
+                    android:id="@+id/bg_right_card_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_matrix_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="망"
+            android:textColor="@color/color_222222"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/root_lyt_right_card_2"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_right_card_2"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_right_card_2"
+            app:layout_constraintTop_toTopOf="@+id/root_lyt_right_card_2"
+            tools:textSize="80sp" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_lyt_right_card_3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_btn_white_radius_50"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_right_area"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toStartOf="@id/root_lyt_right_card_4"
+            app:layout_constraintStart_toStartOf="@id/root_lyt_right_area"
+            app:layout_constraintTop_toBottomOf="@id/root_lyt_right_card_1"
+            app:layout_constraintWidth_percent="0.16">
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp">
+                <FrameLayout
+                    android:id="@+id/bg_right_card_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_matrix_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="외"
+            android:textColor="@color/color_222222"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/root_lyt_right_card_3"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_right_card_3"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_right_card_3"
+            app:layout_constraintTop_toTopOf="@+id/root_lyt_right_card_3"
+            tools:textSize="80sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/root_lyt_right_card_4"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_btn_white_radius_50"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_right_area"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="@id/root_lyt_right_area"
+            app:layout_constraintStart_toEndOf="@id/root_lyt_right_card_3"
+            app:layout_constraintTop_toBottomOf="@id/root_lyt_right_card_2"
+            app:layout_constraintWidth_percent="0.16">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:cardCornerRadius="50dp"
+                app:cardElevation="0dp">
+                <FrameLayout
+                    android:id="@+id/bg_right_card_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless" />
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_matrix_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:fontFamily="@font/nanum_square_eb"
+            android:gravity="center"
+            android:text="고"
+            android:textColor="@color/color_222222"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@+id/root_lyt_right_card_4"
+            app:layout_constraintEnd_toEndOf="@+id/root_lyt_right_card_4"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_right_card_4"
+            app:layout_constraintTop_toTopOf="@+id/root_lyt_right_card_4"
+            tools:textSize="80sp" />
+
+        <LinearLayout
+            android:id="@+id/root_lyt_epsiode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/bg_btn_white_radius_50"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_comment">
+
+            <TextView
+                android:id="@+id/tv_current_episode"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:fontFamily="@font/nanum_square_eb"
+                android:gravity="center_horizontal"
+                android:paddingStart="48dp"
+                android:paddingTop="25dp"
+                android:paddingEnd="48dp"
+                android:paddingBottom="25dp"
+                android:text="12/36"
+                android:textColor="@color/color_222222"
+                android:textStyle="normal"
+                tools:textSize="45sp" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/btn_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/bg_btn_login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/root_lyt_comment">
+
+            <ImageView
+                android:id="@+id/iv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_btn_star"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_hint"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:fontFamily="@font/nanum_square_eb"
+                android:gravity="center_horizontal"
+                android:paddingStart="80dp"
+                android:paddingTop="25dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="25dp"
+                android:text="@string/hint"
+                android:textColor="@color/color_FFFFFFFF"
+                android:textStyle="normal"
+                tools:textSize="35sp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+
+

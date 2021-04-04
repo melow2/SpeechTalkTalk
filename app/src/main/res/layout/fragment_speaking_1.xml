@@ -8,27 +8,17 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_listening">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/root_lyt_comment"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/bg_btn_white_radius_50"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.11"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.917">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/btn_sound"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_btn_sound" />
-
             <TextView
                 android:id="@+id/tv_problem_guide"
                 android:layout_width="match_parent"
@@ -37,8 +27,37 @@
                 android:gravity="center"
                 android:text="@string/comment_speaking_1"
                 android:textColor="@color/color_222222"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp"
                 tools:textSize="55sp" />
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/root_lyt_btn_sound"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/transparent"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="@id/root_lyt_comment"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="@+id/root_lyt_comment"
+            app:layout_constraintTop_toTopOf="@id/root_lyt_comment">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btn_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_btn_sound"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/root_lyt_problem_iv"
@@ -84,6 +103,7 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                app:cardElevation="0dp"
                 android:background="@android:color/transparent"
                 app:cardCornerRadius="50dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -104,6 +124,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_btn_mic"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="H,1:1"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -118,6 +139,7 @@
                         android:layout_gravity="center"
                         android:alpha="0"
                         android:src="@drawable/ic_btn_stop_enabled"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="H,1:1"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -145,6 +167,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:alpha="0"
+                app:cardElevation="0dp"
                 android:background="@android:color/transparent"
                 app:cardCornerRadius="50dp"
                 app:layout_constraintDimensionRatio="H,1:1"
@@ -166,6 +189,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:src="@drawable/ic_btn_play"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="H,1:1"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -179,6 +203,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:alpha="0"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_btn_stop_enabled"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="H,1:1"
@@ -210,7 +235,6 @@
             android:background="@drawable/bg_btn_white_radius_50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/root_lyt_comment">
-
             <TextView
                 android:id="@+id/tv_current_episode"
                 android:layout_width="match_parent"

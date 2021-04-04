@@ -22,6 +22,7 @@ class MainActivity : ScopeActivity() {
     private lateinit var mBinding: ActivityMainBinding
 
 
+    val rightMatrixSize get() = getFontSize(4.6) // 55sp
     val commentSize get() = getFontSize(3.6) // 55sp
     val buttonSize get() = getFontSize(3.3) // 45sp
     val headerSize get() = getFontSize(3.0) // 35sp

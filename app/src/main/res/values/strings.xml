@@ -10,7 +10,9 @@
     <string name="start">시작하기</string>
     <string name="report_view">레포트 보기</string>
     <string name="login">LOGIN</string>
-    <string name="listening_comment_1">단어를 듣고 알맞은 그림을 고르세요.</string>
+    <string name="comment_listening_1">단어를 듣고 알맞은 그림을 고르세요.</string>
     <string name="hint">힌트</string>
     <string name="comment_speaking_1">그림을 보고 알맞은 이름을 말하세요.</string>
+    <string name="comment_writing_1">그림에 알맞은 단어를 완성하세요</string>
+    <string name="left_answer_temp">한</string>
 </resources>

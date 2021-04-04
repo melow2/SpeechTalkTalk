@@ -4,9 +4,11 @@ import com.mindhub.speechtalk.domain.repository.ListeningRepository
 import com.mindhub.speechtalk.domain.thread.CoroutinesDispatcherProvider
 import com.mindhub.speechtalk.ui.speaking.type1.Speaking1PartialChange.*
 import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.rx3.rxObservable
 import java.io.File
 
+@ExperimentalCoroutinesApi
 class Speaking1InteractorImpl(
     private val dispatcherProvider: CoroutinesDispatcherProvider,
     private val listeningRepository: ListeningRepository
@@ -18,6 +20,7 @@ class Speaking1InteractorImpl(
             send(Initialization("망고"))
         }
     }
+
 
     override fun stopAndRecognition(
         mediaFile: File?,
@@ -36,6 +39,7 @@ class Speaking1InteractorImpl(
 
     override fun play(): Observable<Speaking1PartialChange> {
         return rxObservable(dispatcherProvider.main) {
+            send(Idle)
             send(Play)
         }
     }

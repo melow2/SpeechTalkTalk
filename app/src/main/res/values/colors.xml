@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
     <color name="color_FF000000">#FF000000</color>
     <color name="color_FFFFFFFF">#FFFFFFFF</color>
     <color name="color_ff7e96">#ff7e96</color>
@@ -23,6 +24,7 @@
     <color name="color_000000">#000000</color>
     <color name="color_d6222b">#d6222b</color>
     <color name="color_3f3f3f">#3f3f3f</color>
+    <color name="color_dfecff">#dfecff</color>
     <color name="color_ff0000">#ff0000</color>
     <color name="color_5d5d5d">#5d5d5d</color>
     <color name="color_ffe0e5">#ffe0e5</color>
