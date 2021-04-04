@@ -6,9 +6,11 @@
         android:layout_height="match_parent"
         android:background="@color/color_FFFFFFFF">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:src="@drawable/ic_splash"
+            app:layout_constraintWidth_percent="0.243"
+            app:layout_constraintHeight_percent="0.120"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

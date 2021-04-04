@@ -177,7 +177,7 @@ fun Context.wordCardCorrectAfterAnimation(
 )
 
 /**
- * 카드선택 -> [찾기성공]
+ * 힌트.
  * @author Scarlett
  * @version 1.0.0
  * @since 2021-04-03 오후 12:28

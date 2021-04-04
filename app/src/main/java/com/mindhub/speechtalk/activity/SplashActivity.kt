@@ -21,7 +21,7 @@ class SplashActivity : AppCompatActivity() {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             })
             finish()
-        }, 500)
+        }, 1500)
     }
 
     companion object {
